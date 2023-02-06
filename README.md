@@ -21,9 +21,6 @@ API em Node.js para um sistema de gestão de prontuários
 ---
 
 ### Features
-- [x] node --watch
-- [x] Métodos HTTP
-- [x] HTTP Status Code
 
 ### 🛠 Tecnologias
 
