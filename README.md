@@ -23,7 +23,7 @@ API em Node.js para um sistema de gestão de prontuários
 ### Features
 - [x] GET /users
 - [x] POST /users
-- [] POST /sessions
+- [ ] POST /sessions
 
 ### 🛠 Tecnologias
 
