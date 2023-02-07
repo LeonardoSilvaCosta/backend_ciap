@@ -41,7 +41,7 @@ API em Node.js para um sistema de gestão de prontuários
 - [tsyringe](https://www.npmjs.com/package/tsyringe)
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
 - [reflect-metadata](https://www.npmjs.com/package/reflect-metadata)
-- [dotenv](https://www.npmjs.com/package/dotenv)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [jest](https://www.npmjs.com/package/jest)
 - [supertest](https://www.npmjs.com/package/supertest)
 - [@swc/core](https://www.npmjs.com/package/@swc/core)
@@ -50,7 +50,7 @@ API em Node.js para um sistema de gestão de prontuários
 ---
 
 
-### Autores
+### Autor
 
 [Leonardo Costa](https://www.linkedin.com/in/leonardo-da-silva-costa/)
 
