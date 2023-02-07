@@ -9,7 +9,7 @@
 - [Sobre](#sobre)
 - [Features](#features)
 - [Tecnologias](#tecnologias)
-- [Autores](#autores)
+- [Autor](#autores)
 <!--te-->
 
 ---
