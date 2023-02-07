@@ -1,7 +1,7 @@
 version: 2.0
 
 env:
-  PRISMA_MANAGEMENT_API_SECRET: <your-management-api-secret>
+  PRISMA_MANAGEMENT_API_SECRET: rnd_NaQpYouDf5pCtw2Mcbix1f1pj8Yg
 
 build:
   command: npm node dist/server.js
