@@ -2,6 +2,7 @@ import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { hash } from 'bcrypt';
 import { IUserRepository } from "../../repositories/IUserRepository";
 import { User } from "@prisma/client";
+import { AppError } from "../../../../errors/AppError";
 
 export class CreateUserUseCase {
   constructor(
@@ -12,7 +13,7 @@ export class CreateUserUseCase {
     const userAlreadyExists = await this.userRepository.findByEmail(email)
 
     if (userAlreadyExists) {
-      throw new Error("User already exists!")
+      throw new AppError("User already exists!")
     }
 
     const passwordHash = await hash(password, 8);

@@ -50,6 +50,7 @@ API em Node.js para um sistema de gestão de prontuários
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
 - [reflect-metadata](https://www.npmjs.com/package/reflect-metadata)
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [express-async-errors](https://www.npmjs.com/package/express-async-errors)
 - [jest](https://www.npmjs.com/package/jest)
 - [supertest](https://www.npmjs.com/package/supertest)
 - [@swc/core](https://www.npmjs.com/package/@swc/core)
