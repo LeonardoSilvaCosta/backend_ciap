@@ -34,6 +34,15 @@ API em Node.js para um sistema de gestão de prontuários
 - [prettier](https://prettier.io/)
 - [uuid](https://www.npmjs.com/package/uuid)
 - [prisma](https://www.prisma.io/)
+- [cors](https://www.npmjs.com/package/cors)
+- [tsyringe](https://www.npmjs.com/package/tsyringe)
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
+- [reflect-metadata](https://www.npmjs.com/package/reflect-metadata)
+- [dotenv](https://www.npmjs.com/package/dotenv)
+- [jest](https://www.npmjs.com/package/jest)
+- [supertest](https://www.npmjs.com/package/supertest)
+- [@swc/core](https://www.npmjs.com/package/@swc/core)
+- [@swc/jest](https://swc.rs/docs/usage/jest)
 - [VSCode](https://code.visualstudio.com/)
 ---
 
