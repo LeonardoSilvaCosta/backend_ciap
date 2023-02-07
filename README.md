@@ -21,9 +21,17 @@ API em Node.js para um sistema de gestão de prontuários
 ---
 
 ### Features
+#### Rotas
 - [x] GET /users
 - [x] POST /users
-- [ ] POST /sessions
+- [x] POST /sessions
+
+#### Funcionalidades
+- [x] Integração com banco de dados PostgreSQL
+- [x] Lista usuários cadastrados
+- [x] Cria novo usuário
+- [x] Autenticação das rotas
+
 
 ### 🛠 Tecnologias
 
