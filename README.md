@@ -25,6 +25,7 @@ API em Node.js para um sistema de gestão de prontuários
 - [x] GET /users
 - [x] POST /users
 - [x] POST /sessions
+- [ ] GET /me
 
 #### Funcionalidades
 - [x] Integração com banco de dados PostgreSQL
