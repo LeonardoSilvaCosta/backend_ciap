@@ -26,4 +26,4 @@ app.use(
   }
 );
 
-app.listen(3333);
+app.listen(process.env.PORT || 3334, () => console.log(`Server is running on PORT: ${process.env.PORT}`));
