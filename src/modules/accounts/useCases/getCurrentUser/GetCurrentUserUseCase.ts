@@ -1,13 +1,16 @@
-import { User } from "@prisma/client";
 import { AppError } from "../../../../errors/AppError";
 import { IUserRepository } from "../../repositories/IUserRepository";
 
+interface currentUserResponse {
+  name: string,
+  email: string
+}
 
 export class GetCurrentUserUseCase {
   constructor(
     private userRepository: IUserRepository) { }
 
-  async execute(user_id: string): Promise<User | null> {
+  async execute(user_id: string): Promise<currentUserResponse | null> {
     const user = await this.userRepository.findById(user_id);
 
     if (!user) {
@@ -15,7 +18,10 @@ export class GetCurrentUserUseCase {
     }
 
 
-    return user;
+    return {
+      name: user.name,
+      email: user.email
+    };
 
   }
 
