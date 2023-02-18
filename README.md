@@ -56,6 +56,7 @@ API em Node.js para um sistema de gestão de prontuários
 - [supertest](https://www.npmjs.com/package/supertest)
 - [@swc/core](https://www.npmjs.com/package/@swc/core)
 - [@swc/jest](https://swc.rs/docs/usage/jest)
+- [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
 - [VSCode](https://code.visualstudio.com/)
 ---
 
