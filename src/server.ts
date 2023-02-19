@@ -12,6 +12,13 @@ import swaggerDocument from './swagger.json';
 const app = express();
 app.use(express.json())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.get('/swagger', (request: Request, response: Response) => {
+  return response.sendFile(process.cwd() + "/src/swagger.json");
+})
+app.get("/docs", (request: Request, response: Response) => {
+  return response.sendFile(process.cwd() + "/index.html");
+})
+
 app.use(cors());
 app.use(router)
 

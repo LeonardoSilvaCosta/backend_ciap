@@ -69,8 +69,8 @@
           "401": {
             "description": "Token inválido."
           },
-          "404": {
-            "description": "Funcionário não encontrado ."
+          "204": {
+            "description": "Nenhum funcionário cadastrado."
           },
           "500": {
             "description": "Erro servidor."
