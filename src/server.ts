@@ -18,6 +18,9 @@ app.get('/swagger', (request: Request, response: Response) => {
 app.get("/docs", (request: Request, response: Response) => {
   return response.sendFile(process.cwd() + "/index.html");
 })
+app.get('/env', (req, res) => {
+  res.json(process.env.BASE_URL);
+});
 
 app.use(cors());
 app.use(router)
