@@ -21,6 +21,9 @@ app.get("/docs", (request: Request, response: Response) => {
 app.get('/env', (req, res) => {
   res.json(process.env.BASE_URL);
 });
+app.get("/logo", (request: Request, response: Response) => {
+  return response.sendFile(process.cwd() + "/src/brasao_ciap.png");
+})
 
 app.use(cors());
 app.use(router)

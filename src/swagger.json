@@ -13,7 +13,7 @@
     "tags": [
       "Funcionários"
     ],
-    "/users": {
+    "/employees": {
       "post": {
         "description": "Cria um funcionário",
         "requestBody": {
@@ -162,7 +162,8 @@
             "type": "string",
             "description": "A senha do funcionário que será criado."
           }
-        }
+        },
+        "required": ["name", "email", "password"]
       },
       "ResponseEmployee": {
         "type": "object",
@@ -196,7 +197,8 @@
             "type": "string",
             "description": "A senha do funcionário."
           }
-        }
+        },
+        "required": ["email", "password"]
       },
       "TokenResponse": {
         "type": "object",

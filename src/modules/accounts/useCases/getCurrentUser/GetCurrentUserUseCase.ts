@@ -1,5 +1,5 @@
 import { AppError } from "../../../../errors/AppError";
-import { IUserRepository } from "../../repositories/IUserRepository";
+import { IEmployeeRepository } from "../../repositories/IEmployeeRepository";
 
 interface currentUserResponse {
   name: string,
@@ -8,7 +8,7 @@ interface currentUserResponse {
 
 export class GetCurrentUserUseCase {
   constructor(
-    private userRepository: IUserRepository) { }
+    private userRepository: IEmployeeRepository) { }
 
   async execute(user_id: string): Promise<currentUserResponse | null> {
     const user = await this.userRepository.findById(user_id);

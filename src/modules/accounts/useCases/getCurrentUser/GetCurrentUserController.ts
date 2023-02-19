@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { AppError } from "../../../../errors/AppError";
-import { UserRepository } from "../../repositories/implementations/UserRepository";
+import { EmployeeRepository } from "../../repositories/implementations/EmployeeRepository";
 import { GetCurrentUserUseCase } from "./GetCurrentUserUseCase";
 
 
 export class GetCurrentUserController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const getCurrentUserUseCase = new GetCurrentUserUseCase(new UserRepository);
+    const getCurrentUserUseCase = new GetCurrentUserUseCase(new EmployeeRepository);
 
     const { authorization } = request.headers;
     const token = authorization?.split(' ')[1];

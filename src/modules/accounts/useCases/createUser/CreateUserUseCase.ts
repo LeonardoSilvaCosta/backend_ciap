@@ -1,16 +1,27 @@
-import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { hash } from 'bcrypt';
 import { IUserRepository } from "../../repositories/IUserRepository";
 import { User } from "@prisma/client";
 import { AppError } from "../../../../errors/AppError";
+import { ICreateUserRequestDTO } from "../../dtos/ICreateUserRequestDTO";
 
 export class CreateUserUseCase {
   constructor(
-    private userRepository: IUserRepository) {}
+    private userRepository: IUserRepository) { }
 
-  async execute({ name, email, password }: ICreateUserDTO): Promise<User> {
+  async execute({
+    fullname,
+    birthdate,
+    cpf,
+    gender,
+    email,
+    address,
+    educationLevel,
+    maritalStatus,
+    birthplace
+  }: ICreateUserRequestDTO): Promise<User> {
 
-    const userAlreadyExists = await this.userRepository.findByEmail(email)
+
+    const userAlreadyExists = await this.userRepository.findByEmail({fullname, phone})
 
     if (userAlreadyExists) {
       throw new AppError("User already exists!")
@@ -19,9 +30,15 @@ export class CreateUserUseCase {
     const passwordHash = await hash(password, 8);
 
     return await this.userRepository.create({
-      name,
+      fullname,
+      birthdate,
+      cpf,
+      gender,
       email,
-      password: passwordHash
+      address,
+      educationLevel,
+      maritalStatus,
+      birthplace
     })
 
   }

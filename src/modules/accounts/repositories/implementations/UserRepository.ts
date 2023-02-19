@@ -4,14 +4,17 @@ import { User } from "@prisma/client";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 
 export class UserRepository implements IUserRepository {
+  
   async create(user: ICreateUserDTO): Promise<User> {
     return await prisma.user.create({
       data: user
     })
   }
-  async findByEmail(email: string): Promise<User | null> {
+
+
+  async findByFullNameAndPhone(fullname: string, phone: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
-      where: { email }
+      where: { fullname, phone },
     })
 
     return user
@@ -20,14 +23,14 @@ export class UserRepository implements IUserRepository {
   async findById(id: string): Promise<User | null> {
     const intId = Number(id);
     const user = await prisma.user.findUnique({
-      where : { id: intId }
+      where: { id: intId }
     })
 
     return user;
   }
 
   async list(): Promise<User[]> {
-    return await  prisma.user.findMany();
+    return await prisma.user.findMany();
   }
 
 }

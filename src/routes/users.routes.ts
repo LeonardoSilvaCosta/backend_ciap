@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
-import { CreateUserController } from '../modules/accounts/useCases/createUser/CreateUserController';
-import { ListUsersController } from '../modules/accounts/useCases/listUsers/ListUsersController';
+import { CreateEmployeeController } from '../modules/accounts/useCases/createEmployee/CreateEmployeeController';
+import { ListEmployeesController } from '../modules/accounts/useCases/listEmployees/ListEmployeesController';
 
 export const usersRoutes = Router();
 
-const createUserController = new CreateUserController();
-const listUsersController = new ListUsersController();
+const createEmployeeController = new CreateEmployeeController();
+const listEmployeesController = new ListEmployeesController();
 
-usersRoutes.post("/", createUserController.handle);
-usersRoutes.get("/", ensureAuthenticated, listUsersController.handle);
+usersRoutes.post("/", createEmployeeController.handle);
+usersRoutes.get("/", ensureAuthenticated, listEmployeesController.handle);

@@ -8,10 +8,177 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  name     String
-  password String
+  id               BigInt    @id @default(autoincrement())
+  fullname         String    @db.VarChar(255)
+  birthdate        DateTime?
+  cpf              String?   @unique
+  fkGender         Int       @map("fk_gender")
+  firstPhone       String    @map("first_phone")
+  email            String?   @unique
+  fkMaritalStatus  Int?      @map("fk_marital_level")
+  fkEducationLevel Int?      @map("fk_education_level")
+  numberOfChildren Int?      @map("number_of_children")
+  birthplace       String
+  createdAt        DateTime  @default(now()) @map("created_at")
+  fkRegistrant     BigInt    @map("fk_registrant")
+  Phone            Phone[]
+  password         String
+
+  gender         Gender          @relation(fields: [fkGender], references: [id])
+  maritalStatus  MaritalStatus?  @relation(fields: [fkMaritalStatus], references: [id])
+  educationLevel EducationLevel? @relation(fields: [fkEducationLevel], references: [id])
+  address        Address?
+
+  employee          Employee?
+  updateInformation UpdateInformation[]
 
   @@map("users")
+}
+
+model Employee {
+  userId               BigInt   @id @map("id")
+  alias                String
+  unitId               Int      @map("unit_id")
+  administrativeRoleId Int?     @map("administrative_role_id")
+  employeementStatusId Int      @map("employeement_status_id")
+  rankId               Int      @map("rank_id")
+  personnelId          Int?     @map("personnel_id")
+  inclusionDate        DateTime @map("inclusion_date")
+
+  Unit               Unit                @relation(fields: [unitId], references: [id])
+  AdministrativeRole AdministrativeRole? @relation(fields: [administrativeRoleId], references: [id])
+  EmployeementStatus EmployeementStatus  @relation(fields: [employeementStatusId], references: [id])
+  Rank               Rank                @relation(fields: [rankId], references: [id])
+  Personnel          Personnel?          @relation(fields: [personnelId], references: [id])
+
+  user              User               @relation(fields: [userId], references: [id])
+  especialist       Especialist?
+  UpdateInformation UpdateInformation?
+
+  @@map("employees")
+}
+
+model Especialist {
+  employeeId         BigInt @id @map("userId")
+  fkSpecialty        Int    @map("fk_specialty")
+  concilRegistration String @unique @map("concil_registration")
+
+  especialty Especialty @relation(fields: [fkSpecialty], references: [id])
+
+  employee Employee @relation(fields: [employeeId], references: [userId])
+
+  @@map("especialists")
+}
+
+model Phone {
+  userId   BigInt @id @map("id")
+  telefone String @unique
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("phones")
+}
+
+model Gender {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  users User[]
+
+  @@map("genders")
+}
+
+model Address {
+  id         BigInt @id @default(autoincrement())
+  postalCode String @map("postal_code")
+  number     Int
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId BigInt @unique
+
+  @@map("addresses")
+}
+
+model MaritalStatus {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  users User[]
+
+  @@map("marital_status")
+}
+
+model EducationLevel {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  users User[]
+
+  @@map("education_levels")
+}
+
+model Unit {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  employee Employee[]
+
+  @@map("units")
+}
+
+model AdministrativeRole {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  employee Employee[]
+
+  @@map("administrative_roles")
+}
+
+model EmployeementStatus {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  employee Employee[]
+
+  @@map("employeement_status")
+}
+
+model Rank {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  employee Employee[]
+
+  @@map("ranks")
+}
+
+model Personnel {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  employee Employee[]
+
+  @@map("personnels")
+}
+
+model Especialty {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  especialists Especialist[]
+
+  @@map("specialties")
+}
+
+model UpdateInformation {
+  fkEmployee BigInt @unique
+  fkUser     BigInt @unique
+  createdAt  String @map("created_at")
+
+  employee Employee @relation(fields: [fkEmployee], references: [userId])
+  user     User     @relation(fields: [fkUser], references: [id])
+
+  @@id([fkEmployee, fkUser])
+  @@map("update_informations")
 }

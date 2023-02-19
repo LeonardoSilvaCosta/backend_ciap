@@ -3,7 +3,7 @@ import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
 
 export interface IUserRepository {
   create(user: ICreateUserDTO): Promise<User>;
-  findByEmail(email: string) : Promise<User | null>;
+  findByFullNameAndPhone(fullname: string, phone: string ) : Promise<User | null>;
   findById(id: string): Promise<User | null>;
   list(): Promise<User[]>;
 }
