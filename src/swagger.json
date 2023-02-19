@@ -15,7 +15,7 @@
     ],
     "/users": {
       "post": {
-        "description": "Cria de um funcionário",
+        "description": "Cria um funcionário",
         "requestBody": {
           "description": "Dados necessários para cadastro de um funcionário",
           "content": {
