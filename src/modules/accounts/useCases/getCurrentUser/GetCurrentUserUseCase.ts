@@ -1,14 +1,14 @@
 import { AppError } from "../../../../errors/AppError";
-import { IEmployeeRepository } from "../../repositories/IEmployeeRepository";
+import { IUserRepository } from "../../repositories/IUserRepository";
 
 interface currentUserResponse {
   name: string,
-  email: string
+  email: string | null
 }
 
 export class GetCurrentUserUseCase {
   constructor(
-    private userRepository: IEmployeeRepository) { }
+    private userRepository: IUserRepository) { }
 
   async execute(user_id: string): Promise<currentUserResponse | null> {
     const user = await this.userRepository.findById(user_id);
@@ -19,7 +19,7 @@ export class GetCurrentUserUseCase {
 
 
     return {
-      name: user.name,
+      name: user.fullname,
       email: user.email
     };
 

@@ -4,26 +4,54 @@ import { User } from "@prisma/client";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 
 export class UserRepository implements IUserRepository {
-  
+
   async create(user: ICreateUserDTO): Promise<User> {
     return await prisma.user.create({
-      data: user
+      data: {
+        fullname: user.firstPhone,
+        firstPhone: user.firstPhone,
+        cpf: user.cpf,
+        birthdate: user.birthdate,
+        birthplace: user.birthplace,
+        email: user.email,
+        numberOfChildren: user.numberOfChildren,
+        fkRegistrant: user.registrantId,
+        fkEducationLevel: user.educationLevelId,
+        fkGender: user.genderId,
+        fkMaritalStatus: user.maritalStatusId,
+        password: user.password,
+        createdAt: user.createdAt,
+      }
     })
   }
 
 
-  async findByFullNameAndPhone(fullname: string, phone: string): Promise<User | null> {
+  async findByFullNameAndPhone(fullname: string, firstPhone: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
-      where: { fullname, phone },
+      where: {
+        fullname_firstPhone: {
+          fullname,
+          firstPhone
+        }
+      },
     })
 
     return user
   }
 
-  async findById(id: string): Promise<User | null> {
-    const intId = Number(id);
+  async findByEmail(email: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
-      where: { id: intId }
+      where: {
+        email
+      },
+    })
+
+    return user;
+  }
+
+  async findById(id: string | undefined): Promise<User | null> {
+    const user = await prisma.user.findUnique({
+      where: { id }
     })
 
     return user;

@@ -8,41 +8,43 @@ datasource db {
 }
 
 model User {
-  id               BigInt    @id @default(autoincrement())
+  id               String    @id @default(uuid())
   fullname         String    @db.VarChar(255)
+  firstPhone       String    @map("first_phone")
   birthdate        DateTime?
   cpf              String?   @unique
-  fkGender         Int       @map("fk_gender")
-  firstPhone       String    @map("first_phone")
+  fkGender         String    @map("fk_gender")
   email            String?   @unique
-  fkMaritalStatus  Int?      @map("fk_marital_level")
-  fkEducationLevel Int?      @map("fk_education_level")
+  fkMaritalStatus  String?   @map("fk_marital_level")
+  fkEducationLevel String?   @map("fk_education_level")
   numberOfChildren Int?      @map("number_of_children")
-  birthplace       String
+  birthplace       String?
   createdAt        DateTime  @default(now()) @map("created_at")
-  fkRegistrant     BigInt    @map("fk_registrant")
-  Phone            Phone[]
   password         String
 
-  gender         Gender          @relation(fields: [fkGender], references: [id])
-  maritalStatus  MaritalStatus?  @relation(fields: [fkMaritalStatus], references: [id])
-  educationLevel EducationLevel? @relation(fields: [fkEducationLevel], references: [id])
-  address        Address?
+  Registrant   Employee? @relation(name: "registrant", fields: [fkRegistrant], references: [userId])
+  fkRegistrant String?   @unique @map("fk_registrant")
 
-  employee          Employee?
-  updateInformation UpdateInformation[]
+  Employee          Employee[]
+  Phone             Phone[]
+  Gender            Gender              @relation(fields: [fkGender], references: [id])
+  MaritalStatus     MaritalStatus?      @relation(fields: [fkMaritalStatus], references: [id])
+  EducationLevel    EducationLevel?     @relation(fields: [fkEducationLevel], references: [id])
+  Address           Address?
+  UpdateInformation UpdateInformation[]
 
+  @@unique([fullname, firstPhone])
   @@map("users")
 }
 
 model Employee {
-  userId               BigInt   @id @map("id")
+  userId               String   @id @map("user_id")
   alias                String
-  unitId               Int      @map("unit_id")
-  administrativeRoleId Int?     @map("administrative_role_id")
-  employeementStatusId Int      @map("employeement_status_id")
-  rankId               Int      @map("rank_id")
-  personnelId          Int?     @map("personnel_id")
+  unitId               String   @map("unit_id")
+  administrativeRoleId String?  @map("administrative_role_id")
+  employeementStatusId String   @map("employeement_status_id")
+  rankId               String   @map("rank_id")
+  personnelId          String?  @map("personnel_id")
   inclusionDate        DateTime @map("inclusion_date")
 
   Unit               Unit                @relation(fields: [unitId], references: [id])
@@ -50,17 +52,21 @@ model Employee {
   EmployeementStatus EmployeementStatus  @relation(fields: [employeementStatusId], references: [id])
   Rank               Rank                @relation(fields: [rankId], references: [id])
   Personnel          Personnel?          @relation(fields: [personnelId], references: [id])
+  User               User                @relation(fields: [userId], references: [id])
 
-  user              User               @relation(fields: [userId], references: [id])
-  especialist       Especialist?
-  UpdateInformation UpdateInformation?
+  Especialist            Especialist[]
+  UpdateInformation      UpdateInformation?
+  RegisteredUsers        User?              @relation(name: "registrant")
+  employeeUserFullname   String             @db.VarChar(255)
+  employeeUserFirstPhone String
 
   @@map("employees")
 }
 
 model Especialist {
-  employeeId         BigInt @id @map("userId")
-  fkSpecialty        Int    @map("fk_specialty")
+  employeeId String @id @map("employee_id")
+
+  fkSpecialty        String @map("fk_specialty")
   concilRegistration String @unique @map("concil_registration")
 
   especialty Especialty @relation(fields: [fkSpecialty], references: [id])
@@ -71,16 +77,18 @@ model Especialist {
 }
 
 model Phone {
-  userId   BigInt @id @map("id")
-  telefone String @unique
+  userId   String @map("user_id")
+  telefone String
 
   user User @relation(fields: [userId], references: [id])
 
+  @@id([userId, telefone])
+  @@unique([userId, telefone])
   @@map("phones")
 }
 
 model Gender {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
   users User[]
@@ -89,18 +97,18 @@ model Gender {
 }
 
 model Address {
-  id         BigInt @id @default(autoincrement())
+  id         String @id @default(uuid())
   postalCode String @map("postal_code")
   number     Int
 
-  user   User   @relation(fields: [userId], references: [id])
-  userId BigInt @unique
+  user   User   @relation(fields: [fkUser], references: [id])
+  fkUser String @unique @map("fk_user")
 
   @@map("addresses")
 }
 
 model MaritalStatus {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
   users User[]
@@ -109,7 +117,7 @@ model MaritalStatus {
 }
 
 model EducationLevel {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
   users User[]
@@ -118,7 +126,7 @@ model EducationLevel {
 }
 
 model Unit {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
   employee Employee[]
@@ -127,7 +135,7 @@ model Unit {
 }
 
 model AdministrativeRole {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
   employee Employee[]
@@ -136,7 +144,7 @@ model AdministrativeRole {
 }
 
 model EmployeementStatus {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
   employee Employee[]
@@ -145,7 +153,7 @@ model EmployeementStatus {
 }
 
 model Rank {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
   employee Employee[]
@@ -154,7 +162,7 @@ model Rank {
 }
 
 model Personnel {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
   employee Employee[]
@@ -163,7 +171,7 @@ model Personnel {
 }
 
 model Especialty {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
   especialists Especialist[]
@@ -172,13 +180,13 @@ model Especialty {
 }
 
 model UpdateInformation {
-  fkEmployee BigInt @unique
-  fkUser     BigInt @unique
+  employeeId String @unique @map("employee_id")
+  userId     String @unique @map("user_id")
   createdAt  String @map("created_at")
 
-  employee Employee @relation(fields: [fkEmployee], references: [userId])
-  user     User     @relation(fields: [fkUser], references: [id])
+  registrant Employee @relation(fields: [employeeId], references: [userId])
+  user       User     @relation(fields: [userId], references: [id])
 
-  @@id([fkEmployee, fkUser])
+  @@id([employeeId, userId])
   @@map("update_informations")
 }

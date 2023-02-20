@@ -3,43 +3,62 @@ import { IUserRepository } from "../../repositories/IUserRepository";
 import { User } from "@prisma/client";
 import { AppError } from "../../../../errors/AppError";
 import { ICreateUserRequestDTO } from "../../dtos/ICreateUserRequestDTO";
+import { CreateAddressUseCase } from '../createAddress/CreateAddressUseCase';
 
 export class CreateUserUseCase {
   constructor(
-    private userRepository: IUserRepository) { }
+    private userRepository: IUserRepository,
+    private createAddressUseCase: CreateAddressUseCase
+  ) { }
 
   async execute({
     fullname,
     birthdate,
     cpf,
-    gender,
+    gender_id,
+    first_phone,
     email,
-    address,
-    educationLevel,
-    maritalStatus,
-    birthplace
+    address: { postal_code = "", number = 0 },
+    marital_status_id,
+    education_level_id,
+    number_of_children,
+    birthplace,
+    registrant_id
   }: ICreateUserRequestDTO): Promise<User> {
 
-
-    const userAlreadyExists = await this.userRepository.findByEmail({fullname, phone})
+    const userAlreadyExists = await this.userRepository.findByFullNameAndPhone(fullname, first_phone);
 
     if (userAlreadyExists) {
-      throw new AppError("User already exists!")
+      throw new AppError("User already exists.")
     }
+
+    // const password = randomstring.generate(10);
+    const password = "123"
 
     const passwordHash = await hash(password, 8);
 
-    return await this.userRepository.create({
+    const createdUser = await this.userRepository.create({
       fullname,
+      firstPhone: first_phone,
       birthdate,
       cpf,
-      gender,
+      genderId: gender_id,
       email,
-      address,
-      educationLevel,
-      maritalStatus,
-      birthplace
+      educationLevelId: education_level_id,
+      maritalStatusId: marital_status_id,
+      numberOfChildren: number_of_children,
+      birthplace,
+      password: passwordHash,
+      registrantId: registrant_id,
+      createdAt: new Date(),
     })
+
+    await this.createAddressUseCase.execute({
+      fkUser: createdUser.id,
+      address: { postal_code, number }
+    });
+
+    return createdUser;
 
   }
 }

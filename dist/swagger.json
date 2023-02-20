@@ -1,0 +1,238 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "API para o Sistema de Gestão de prontuários do CIAP",
+        "description": "Essa API tem o objetivo de implementar os casos de uso, estrutura de segurança e outros elementos atinentes ao backend para a aplicação do CIAP",
+        "contact": {
+            "name": "Suporte",
+            "email": "leonardocostapsi@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "tags": [
+            "Funcionários"
+        ],
+        "/employees": {
+            "post": {
+                "description": "Cria um funcionário",
+                "requestBody": {
+                    "description": "Dados necessários para cadastro de um funcionário",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestEmployee"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Funcionário criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseEmployee"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Funcionário já existe."
+                    },
+                    "500": {
+                        "description": "Erro servidor."
+                    }
+                }
+            },
+            "get": {
+                "description": "Lista os funcionários cadastrados",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Funcionário criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseEmployee"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token inválido."
+                    },
+                    "204": {
+                        "description": "Nenhum funcionário cadastrado."
+                    },
+                    "500": {
+                        "description": "Erro servidor."
+                    }
+                }
+            }
+        },
+        "/sessions": {
+            "post": {
+                "description": "Autentica o usuário na aplicação.",
+                "requestBody": {
+                    "description": "O usuário é autenticado na aplicação informando as suas credenciais de acesso.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmployeeCredentials"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Email ou senha incorreta."
+                    },
+                    "500": {
+                        "description": "Erro no servidor."
+                    }
+                }
+            }
+        },
+        "/me": {
+            "get": {
+                "description": "Retorna os dados do funcionário logado",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successo.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseEmployee"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token inválido."
+                    },
+                    "404": {
+                        "description": "Funcionário não encontrado."
+                    },
+                    "500": {
+                        "description": "Erro servidor."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RequestEmployee": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do funcionário que será criado.",
+                        "example": "Leonardo Costa"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email do funcionário que será criado.",
+                        "example": "leonardocostapsi@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "A senha do funcionário que será criado."
+                    }
+                },
+                "required": ["name", "email", "password"]
+            },
+            "ResponseEmployee": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "id do funcionário cadastrado",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do funcionário cadastrado.",
+                        "example": "Leonardo Costa"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email do funcionário cadastrado.",
+                        "example": "leonardocostapsi@gmail.com"
+                    }
+                }
+            },
+            "EmployeeCredentials": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "Email do funcionário.",
+                        "example": "leonardocostapsi@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "A senha do funcionário."
+                    }
+                },
+                "required": ["email", "password"]
+            },
+            "TokenResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "Nome do funcionário logado",
+                                "example": "Leonardo Costa"
+                            },
+                            "email": {
+                                "type": "string",
+                                "description": "Email do funcionário logado",
+                                "example": "leonardocostapsi@gmail.com"
+                            }
+                        }
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "Token concedido ao funcionário logado",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzY3Mjc4MzQsImV4cCI6MTY3NjgxNDIzNCwic3ViIjoiOSJ9.dhue4XHYW4mNBGqKfrp6QG15xO3QcieGvzSAjbXdizw"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "description": "Autenticação utilizando JWT",
+                "type": "http",
+                "scheme": "Bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

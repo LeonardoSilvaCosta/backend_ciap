@@ -1,16 +1,17 @@
-import { Address, EducationLevel, Employee, Gender, MaritalStatus, UpdateInformation } from "@prisma/client";
+import { ICreateAddressRequestDTO } from "./ICreateAddressRequestDTO"
 
 export interface ICreateUserRequestDTO {
   fullname: string,
   birthdate?: Date,
   cpf?: string,
-  gender: number,
+  gender_id: string,
+  first_phone: string,
   email?: string,
-  address?: Address,
-  maritalStatus?: number,
-  educationLevel?: number
+  address: ICreateAddressRequestDTO,
+  marital_status_id?: string,
+  education_level_id?: string
+  number_of_children?: number,
   birthplace?: string,
-  createdAt: Date
-  registrant: number
+  registrant_id?: string
   password?: string
 }

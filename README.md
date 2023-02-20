@@ -22,10 +22,21 @@ API em Node.js para um sistema de gestão de prontuários
 
 ### Features
 #### Rotas
+
+##### Users
 - [x] GET /users
 - [x] POST /users
 - [x] POST /sessions
 - [x] GET /me
+
+##### Genders
+- [x] POST /users
+
+##### Marital Status
+- [x] POST /users
+
+##### EducationLevel
+- [x] POST /users
 
 #### Funcionalidades
 - [x] Integração com banco de dados PostgreSQL
