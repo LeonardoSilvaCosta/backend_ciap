@@ -60,15 +60,16 @@ export class CreateUserUseCase {
     });
 
     return {
+      id: createdUser.id,
       fullname: createdUser.fullname,
       birthdate: createdUser.birthdate,
       cpf: createdUser.cpf,
-      gender: createdUser.fkGender,
+      gender_id: createdUser.fkGender,
       first_phone: createdUser.firstPhone,
       email: createdUser.email,
       address: createdAddress,
-      marital_status: createdUser.fkMaritalStatus ,
-      education_level: createdUser.fkEducationLevel,
+      marital_status_id: createdUser.fkMaritalStatus ,
+      education_level_id: createdUser.fkEducationLevel,
       number_of_children: createdUser.numberOfChildren,
       birthplace: createdUser.birthplace,
       registrant_id: createdUser.fkRegistrant,

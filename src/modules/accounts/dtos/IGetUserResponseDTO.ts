@@ -5,21 +5,21 @@ export interface IGetUserResponseDTO {
     firstPhone: string,
     birthdate: Date | null,
     cpf: string | null,
+    gender: { name: string } | null,
     email: string | null,
-    numberOfChildren: number | null,
-    birthplace: string | null,
-    createdAt: Date,
-    Gender: { name: string } | null,
-    Address: {
+    address: {
         postalCode: string,
         number: number,
     } | null,
-    MaritalStatus: { name: string } | null,
-    EducationLevel: { name: string } | null,
-    Registrant: { userId: string } | null,
-    Phone: { telefone: string }[] | null,
-    UpdateInformation?: {
-        createdAt: string,
-        employeeId: string
+    marital_status: { name: string } | null,
+    education_level: { name: string } | null,
+    number_of_children: number | null,
+    birthplace: string | null,
+    registrant_id: { userId: string } | null,
+    phones: { phone: string }[] | null,
+    created_at: Date,
+    update_information?: {
+        created_at: string,
+        employee_id: string
     }[],
 }
