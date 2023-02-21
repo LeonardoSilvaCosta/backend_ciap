@@ -1,5 +1,6 @@
 
-export interface IListUserResponseDTO {
+export interface IGetUserResponseDTO {
+    id: string,
     fullname: string,
     firstPhone: string,
     birthdate: Date | null,

@@ -8,5 +8,5 @@ const ListUsersController_1 = require("../modules/accounts/useCases/listUsers/Li
 exports.usersRoutes = (0, express_1.Router)();
 const createUserController = new CreateUserController_1.CreateUserController();
 const listUsersController = new ListUsersController_1.ListUsersController();
-exports.usersRoutes.post("/", createUserController.handle);
+exports.usersRoutes.post("/", ensureAuthenticated_1.ensureAuthenticated, createUserController.handle);
 exports.usersRoutes.get("/", ensureAuthenticated_1.ensureAuthenticated, listUsersController.handle);

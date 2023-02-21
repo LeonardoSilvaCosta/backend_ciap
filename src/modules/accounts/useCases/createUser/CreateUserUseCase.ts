@@ -1,10 +1,10 @@
 import { hash } from 'bcrypt';
 import { IUserRepository } from "../../repositories/IUserRepository";
-import { User } from "@prisma/client";
 import { AppError } from "../../../../errors/AppError";
 import { ICreateUserRequestDTO } from "../../dtos/ICreateUserRequestDTO";
 import { CreateAddressUseCase } from '../createAddress/CreateAddressUseCase';
-import { CreatedUser } from '../../../../types';
+import { ICreateUserResponseDTO } from '../../dtos/ICreateUserResponseDTO';
+import { parse } from 'date-fns';
 
 export class CreateUserUseCase {
   constructor(
@@ -14,7 +14,7 @@ export class CreateUserUseCase {
 
   async execute({
     fullname,
-    birthdate,
+    birthdate = "",
     cpf,
     gender_id,
     first_phone,
@@ -25,7 +25,7 @@ export class CreateUserUseCase {
     number_of_children,
     birthplace,
     registrant_id
-  }: ICreateUserRequestDTO): Promise<CreatedUser> {
+  }: ICreateUserRequestDTO): Promise<ICreateUserResponseDTO> {
 
     const userAlreadyExists = await this.userRepository.findByFullNameAndPhone(fullname, first_phone);
 
@@ -41,7 +41,7 @@ export class CreateUserUseCase {
     const createdUser = await this.userRepository.create({
       fullname,
       firstPhone: first_phone,
-      birthdate,
+      birthdate: parse(birthdate, 'dd/MM/yyyy', new Date()),
       cpf,
       genderId: gender_id,
       email,

@@ -8,7 +8,7 @@ import { CreateAddressUseCase } from "../createAddress/CreateAddressUseCase";
 export class CreateUserController {
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const { id: user_id } = request.user;
+    // const { id: user_id } = request.user;
     const createUserUseCase = new CreateUserUseCase(
       new UserRepository,
       new CreateAddressUseCase(new AddressRepository),
@@ -37,7 +37,7 @@ export class CreateUserController {
       marital_status_id,
       education_level_id,
       birthplace,
-      registrant_id: user_id
+      registrant_id: null
     })
 
     return response.status(201).json(createUser);

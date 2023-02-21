@@ -69,7 +69,6 @@ async function main() {
       numberOfChildren: 0,
       birthplace: "Belém-PA",
       password: userPasswordHash,
-      fkRegistrant: admin.id,
       createdAt: new Date(),
     }
   })

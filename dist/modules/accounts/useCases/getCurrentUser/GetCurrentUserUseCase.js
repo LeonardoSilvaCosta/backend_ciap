@@ -21,10 +21,7 @@ class GetCurrentUserUseCase {
             if (!user) {
                 throw new AppError_1.AppError("User not found.");
             }
-            return {
-                name: user.fullname,
-                email: user.email
-            };
+            return user;
         });
     }
 }

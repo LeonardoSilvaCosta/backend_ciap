@@ -2,7 +2,7 @@ import { prisma } from '../../../../prisma';
 import { IUserRepository } from "../IUserRepository";
 import { User } from "@prisma/client";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
-import { IListUserResponseDTO } from '../../dtos/IListUserResponseDTO';
+import { IGetUserResponseDTO } from '../../dtos/IGetUserResponseDTO';
 
 export class UserRepository implements IUserRepository {
 
@@ -44,23 +44,72 @@ export class UserRepository implements IUserRepository {
     const user = await prisma.user.findUnique({
       where: {
         email
+      }
+    })
+
+    return user;
+  }
+
+  async findById(id: string | undefined): Promise<IGetUserResponseDTO | null> {
+    const user = await prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        fullname: true,
+        firstPhone: true,
+        birthdate: true,
+        cpf: true,
+        email: true,
+        numberOfChildren: true,
+        birthplace: true,
+        createdAt: true,
+        Gender: {
+          select: {
+            name: true,
+          }
+        },
+        Address: {
+          select: {
+            postalCode: true,
+            number: true,
+          }
+        },
+        MaritalStatus: {
+          select: {
+            name: true,
+          }
+        },
+        EducationLevel: {
+          select: {
+            name: true,
+          }
+        },
+        Registrant: {
+          select: {
+            userId: true
+          }
+        },
+        Phone: {
+          select: {
+            telefone: true
+          }
+        },
+        UpdateInformation: {
+          select: {
+            createdAt: true,
+            employeeId: true
+          }
+        },
       },
     })
 
     return user;
   }
 
-  async findById(id: string | undefined): Promise<User | null> {
-    const user = await prisma.user.findUnique({
-      where: { id }
-    })
-
-    return user;
-  }
-
-  async list(): Promise<IListUserResponseDTO[]> {
+  async list(): Promise<IGetUserResponseDTO[]> {
     return await prisma.user.findMany({
       select: {
+        id: true,
         fullname: true,
         firstPhone: true,
         birthdate: true,

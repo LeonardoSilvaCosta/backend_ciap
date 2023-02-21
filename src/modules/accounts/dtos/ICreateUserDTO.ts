@@ -10,7 +10,7 @@ export interface ICreateUserDTO {
   educationLevelId?: string,
   numberOfChildren?: number,
   birthplace?: string,
-  registrantId?: string
+  registrantId?: string | null,
   password: string,
   createdAt: Date,
 }

@@ -1,4 +1,4 @@
-import { IListUserResponseDTO } from '../../dtos/IListUserResponseDTO';
+import { IGetUserResponseDTO } from '../../dtos/IGetUserResponseDTO';
 import { IUserRepository } from '../../repositories/IUserRepository';
 
 export class ListUsersUseCase {
@@ -7,7 +7,7 @@ export class ListUsersUseCase {
     private userRepository: IUserRepository,
   ) { }
 
-  async execute(): Promise<IListUserResponseDTO[]> {
+  async execute(): Promise<IGetUserResponseDTO[]> {
     const users = await this.userRepository.list();
 
     return users

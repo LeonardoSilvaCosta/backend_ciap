@@ -1,16 +1,12 @@
 import { AppError } from "../../../../errors/AppError";
+import { IGetUserResponseDTO } from "../../dtos/IGetUserResponseDTO";
 import { IUserRepository } from "../../repositories/IUserRepository";
-
-interface currentUserResponse {
-  name: string,
-  email: string | null
-}
 
 export class GetCurrentUserUseCase {
   constructor(
     private userRepository: IUserRepository) { }
 
-  async execute(user_id: string): Promise<currentUserResponse | null> {
+  async execute(user_id: string): Promise<IGetUserResponseDTO | null> {
     const user = await this.userRepository.findById(user_id);
 
     if (!user) {
@@ -18,10 +14,7 @@ export class GetCurrentUserUseCase {
     }
 
 
-    return {
-      name: user.fullname,
-      email: user.email
-    };
+    return user;
 
   }
 
