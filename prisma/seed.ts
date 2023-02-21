@@ -1,4 +1,4 @@
-import { prisma } from "../prisma";
+import { prisma } from "../src/prisma";
 import { hash } from "bcrypt";
 import { parse } from 'date-fns';
 
