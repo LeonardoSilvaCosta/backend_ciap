@@ -70,19 +70,3 @@ jobs:
         run: npx prisma migrate deploy
         env:
           DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
-
-  prisma-seeds:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install Prisma and dependencies
-        run: npm install @prisma/cli prisma
-
-      - name: Generate Prisma Client
-        run: npx prisma generate
-
-      - name: Run Seeds
-        run: npx prisma db seed --preview-feature
