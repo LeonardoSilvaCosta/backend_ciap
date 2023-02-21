@@ -1,0 +1,688 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "API para o Sistema de Gestão de prontuários do CIAP",
+        "description": "Essa API tem o objetivo de implementar os casos de uso, estrutura de segurança e outros elementos atinentes ao backend para a aplicação do CIAP",
+        "contact": {
+            "name": "Suporte",
+            "email": "leonardocostapsi@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "description": "Cria um usuário",
+                "tags": [
+                    "Usuários"
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para cadastro de um usuário",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateUserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Usuário já foi cadastrado."
+                    },
+                    "500": {
+                        "description": "Erro servidor."
+                    }
+                }
+            },
+            "get": {
+                "description": "Lista os usuários cadastrados",
+                "tags": [
+                    "Usuários"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GetUserResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token inválido."
+                    },
+                    "404": {
+                        "description": "Nenhum Usuário encontrado."
+                    },
+                    "500": {
+                        "description": "Erro servidor."
+                    }
+                }
+            }
+        },
+        "/sessions": {
+            "post": {
+                "description": "Autentica o usuário na aplicação.",
+                "tags": [
+                    "Usuários"
+                ],
+                "requestBody": {
+                    "description": "O usuário é autenticado na aplicação informando as suas credenciais de acesso.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserCredentials"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Email ou senha incorreta."
+                    },
+                    "500": {
+                        "description": "Erro no servidor."
+                    }
+                }
+            }
+        },
+        "/me": {
+            "get": {
+                "description": "Retorna os dados do usuário logado",
+                "tags": [
+                    "Usuários"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successo.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetUserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token inválido."
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado."
+                    },
+                    "500": {
+                        "description": "Erro servidor."
+                    }
+                }
+            }
+        },
+        "/genders": {
+            "post": {
+                "description": "Cria uma opção de sexo na tabela genders.",
+                "tags": [
+                    "Sexo"
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para o cadastro de um sexo.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateGender"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sexo criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateGender"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Esse sexo já foi cadastrado."
+                    },
+                    "500": {
+                        "description": "Erro servidor."
+                    }
+                }
+            }
+        },
+        "/maritalStatus": {
+            "post": {
+                "description": "Cria uma opção de estado civil na tabela marital_status.",
+                "tags": [
+                    "Estado civil"
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para o cadastro de um estado civil.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateMarialStatus"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Estado civil criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateMaritalStatus"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Esse estado civil já foi cadastrado."
+                    },
+                    "500": {
+                        "description": "Erro servidor."
+                    }
+                }
+            }
+        },
+        "/educationLevels": {
+            "post": {
+                "description": "Cria uma opção de escolaridade na tabela edication_levels.",
+                "tags": [
+                    "Escolaridade"
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para o cadastro de uma escolaridade.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateEducationLevel"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Escolaridade criada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateEducationLevel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Essa escolaridade já foi cadastrada."
+                    },
+                    "500": {
+                        "description": "Erro servidor."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CreateUserRequest": {
+                "type": "object",
+                "properties": {
+                    "fullname": {
+                        "description": "Nome completo do usuário que será criado.",
+                        "type": "string",
+                        "example": "Leonardo da Silva Costa"
+                    },
+                    "first_phone": {
+                        "description": "Telefone principal do usuário que será criado.",
+                        "type": "string",
+                        "example": "91988165507"
+                    },
+                    "birthdate": {
+                        "description": "Data de nascimento do usuário que será criado.",
+                        "type": "string",
+                        "example": "20/01/2022"
+                    },
+                    "cpf": {
+                        "description": "CPF do usuário que será criado.",
+                        "type": "string",
+                        "example": "49415961023"
+                    },
+                    "gender_id": {
+                        "description": "Identificador do sexo do usuário que será criado.",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+                    },
+                    "email": {
+                        "description": "Email do usuário que será criado.",
+                        "type": "string",
+                        "example": "leonardocostapsi@gmail.com"
+                    },
+                    "address": {
+                        "type": "object",
+                        "properties": {
+                            "postal_code": {
+                                "type": "string",
+                                "description": "CEP",
+                                "example": "66635510",
+                                "required": true
+                            },
+                            "number": {
+                                "type": "number",
+                                "description": "Número da residência do usuário que será criado.",
+                                "example": "53-A",
+                                "required": true
+                            }
+                        },
+                        "description": "Endereço do usuário que será criado.",
+                        "example": "leonardocostapsi@gmail.com"
+                    },
+                    "marital_status_id": {
+                        "description": "Identificador do estado civil do usuário que será criado.",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+                    },
+                    "education_level_id": {
+                        "description": "Identificador do nível de escolaridade do usuário que será criado.",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+                    },
+                    "number_of_children": {
+                        "description": "Número de filhos do usuário que será criado.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "birthplace": {
+                        "description": "Local de nascimento do usuário que será criado no formato cidade-estado.",
+                        "type": "string",
+                        "example": "Belém-PA"
+                    }
+                },
+                "required": [
+                    "fullname",
+                    "first_phone",
+                    "gender_id"
+                ]
+            },
+            "CreateUserResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Identificador do usuário criado.",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "d563f847-75af-4ecf-9d72-09bfee78116d"
+                    },
+                    "fullname": {
+                        "description": "Nome completo do usuário criado.",
+                        "type": "string",
+                        "example": "Leonardo da Silva Costa"
+                    },
+                    "first_phone": {
+                        "description": "Telefone principal do usuário criado.",
+                        "type": "string",
+                        "example": "91988165507"
+                    },
+                    "birthdate": {
+                        "description": "Data de nascimento do usuário criado.",
+                        "type": "string",
+                        "example": "20/01/2022"
+                    },
+                    "cpf": {
+                        "description": "CPF do usuário criado.",
+                        "type": "string",
+                        "example": "49415961023"
+                    },
+                    "gender_id": {
+                        "description": "Identificador do sexo do usuário criado.",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+                    },
+                    "email": {
+                        "description": "Email do usuário criado.",
+                        "type": "string",
+                        "example": "leonardocostapsi@gmail.com"
+                    },
+                    "address": {
+                        "description": "Endereço do usuário criado.",
+                        "type": "object",
+                        "properties": {
+                            "postal_code": {
+                                "type": "string",
+                                "description": "CEP",
+                                "required": true
+                            },
+                            "number": {
+                                "type": "number",
+                                "description": "Número da residência do usuário criado.",
+                                "required": true
+                            }
+                        },
+                        "example": {
+                            "postal_code": "66635510",
+                            "number": 53
+                        }
+                    },
+                    "marital_status_id": {
+                        "description": "Identificador do estado civil do usuário criado.",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+                    },
+                    "education_level_id": {
+                        "description": "Identificador do nível de escolaridade do usuário criado.",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+                    },
+                    "number_of_children": {
+                        "description": "Número de filhos do usuário criado.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "birthplace": {
+                        "description": "Local de nascimento do usuário criado no formato cidade-estado.",
+                        "type": "string",
+                        "example": "Belém-PA"
+                    },
+                    "registrant_id": {
+                        "description": "Identificador do funcionário que cadastrou o usuário criado.",
+                        "type": "string",
+                        "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+                    },
+                    "created_at": {
+                        "description": "Data de criação do usuário criado.",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2017-07-21T17:32:28Z"
+                    }
+                }
+            },
+            "GetUserResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Identificador do usuário.",
+                        "format": "uuid",
+                        "example": "d563f847-75af-4ecf-9d72-09bfee78116d"
+                    },
+                    "fullname": {
+                        "description": "Nome completo do usuário.",
+                        "type": "string",
+                        "example": "Leonardo da Silva Costa"
+                    },
+                    "first_phone": {
+                        "description": "Telefone principal do usuário.",
+                        "type": "string",
+                        "example": "91988165507"
+                    },
+                    "birthdate": {
+                        "description": "Data de nascimento do usuário.",
+                        "type": "string",
+                        "example": "20/01/2022"
+                    },
+                    "cpf": {
+                        "description": "CPF do usuário.",
+                        "type": "string",
+                        "example": "49415961023"
+                    },
+                    "gender": {
+                        "description": "Sexo do usuário.",
+                        "type": "string",
+                        "example": "Masculino"
+                    },
+                    "email": {
+                        "description": "Email do usuário.",
+                        "type": "string",
+                        "example": "leonardocostapsi@gmail.com"
+                    },
+                    "address": {
+                        "type": "object",
+                        "properties": {
+                            "postal_code": {
+                                "type": "string",
+                                "description": "CEP do usuário",
+                                "example": "66635510",
+                                "required": true
+                            },
+                            "number": {
+                                "type": "number",
+                                "description": "Número da residência do usuário.",
+                                "example": "53-A",
+                                "required": true
+                            }
+                        },
+                        "description": "Endereço do usuário criado.",
+                        "example": "leonardocostapsi@gmail.com"
+                    },
+                    "marital_status": {
+                        "description": "Identificador do estado civil do usuário criado.",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+                    },
+                    "education_level": {
+                        "description": "Identificador do nível de escolaridade do usuário criado.",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+                    },
+                    "number_of_children": {
+                        "description": "Número de filhos do usuário criado.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "birthplace": {
+                        "description": "Local de nascimento do usuário criado no formato cidade-estado.",
+                        "type": "string",
+                        "example": "Belém-PA"
+                    },
+                    "registrant_id": {
+                        "description": "Identificador do funcionário que cadastrou o usuário.",
+                        "type": "string",
+                        "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+                    },
+                    "phones": {
+                        "description": "Lista de telefones cadastrados do usuário.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Phone"
+                        },
+                        "example": [
+                            {
+                                "phone": "91993294200"
+                            }
+                        ]
+                    },
+                    "created_at": {
+                        "description": "Data de criação do usuário.",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2017-07-21T17:32:28Z"
+                    },
+                    "update_information": {
+                        "description": "Dados de atualização referente ao cadastro do usuário",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UpdateInformation"
+                        }
+                    }
+                }
+            },
+            "UserCredentials": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "Email do funcionário.",
+                        "example": "leonardocostapsi@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "A senha do funcionário."
+                    }
+                },
+                "required": [
+                    "email",
+                    "password"
+                ]
+            },
+            "TokenResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "Nome do funcionário logado",
+                                "example": "Leonardo Costa"
+                            },
+                            "email": {
+                                "type": "string",
+                                "description": "Email do funcionário logado",
+                                "example": "leonardocostapsi@gmail.com"
+                            }
+                        }
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "Token concedido ao funcionário logado",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzY3Mjc4MzQsImV4cCI6MTY3NjgxNDIzNCwic3ViIjoiOSJ9.dhue4XHYW4mNBGqKfrp6QG15xO3QcieGvzSAjbXdizw"
+                    }
+                }
+            },
+            "Phone": {
+                "description": "Objeto que armazena um número de telefone do usuário.",
+                "type": "object",
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "example": "993294200"
+                    }
+                }
+            },
+            "UpdateInformation": {
+                "description": "Dados de atualização referente ao cadastro do usuário",
+                "type": "object",
+                "properties": {
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "employeeId": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                },
+                "example": [
+                    {
+                        "created_at": "2017-07-21T17:32:28Z",
+                        "employeeId": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+                    }
+                ]
+            },
+            "CreateGender": {
+                "description": "Objeto que armazena as opções de sexo.",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "id": "6adae8b2-af95-4608-8974-f5b677b8a98c",
+                    "name": "Masculino"
+                }
+            },
+            "CreateEducationLevel": {
+                "description": "Objeto que armazena as opções de escolaridade.",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "id": "6adae8b2-af95-4608-8974-f5b677b8a98c",
+                    "name": "Médio completo."
+                }
+            },
+            "CreateMaritalStatus": {
+                "description": "Objeto que armazena as opções de estado civil.",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "id": "6adae8b2-af95-4608-8974-f5b677b8a98c",
+                    "name": "Solteiro(a)"
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "description": "Autenticação utilizando JWT",
+                "type": "http",
+                "scheme": "Bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
