@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const prisma_1 = require("../prisma");
+const prisma_1 = require(".");
 const bcrypt_1 = require("bcrypt");
 const date_fns_1 = require("date-fns");
 function main() {
