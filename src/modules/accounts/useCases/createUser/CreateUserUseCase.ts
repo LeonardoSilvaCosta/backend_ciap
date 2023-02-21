@@ -4,6 +4,7 @@ import { User } from "@prisma/client";
 import { AppError } from "../../../../errors/AppError";
 import { ICreateUserRequestDTO } from "../../dtos/ICreateUserRequestDTO";
 import { CreateAddressUseCase } from '../createAddress/CreateAddressUseCase';
+import { CreatedUser } from '../../../../types';
 
 export class CreateUserUseCase {
   constructor(
@@ -24,7 +25,7 @@ export class CreateUserUseCase {
     number_of_children,
     birthplace,
     registrant_id
-  }: ICreateUserRequestDTO): Promise<User> {
+  }: ICreateUserRequestDTO): Promise<CreatedUser> {
 
     const userAlreadyExists = await this.userRepository.findByFullNameAndPhone(fullname, first_phone);
 
@@ -53,12 +54,26 @@ export class CreateUserUseCase {
       createdAt: new Date(),
     })
 
-    await this.createAddressUseCase.execute({
+    const createdAddress = await this.createAddressUseCase.execute({
       fkUser: createdUser.id,
       address: { postal_code, number }
     });
 
-    return createdUser;
+    return {
+      fullname: createdUser.fullname,
+      birthdate: createdUser.birthdate,
+      cpf: createdUser.cpf,
+      gender: createdUser.fkGender,
+      first_phone: createdUser.firstPhone,
+      email: createdUser.email,
+      address: createdAddress,
+      marital_status: createdUser.fkMaritalStatus ,
+      education_level: createdUser.fkEducationLevel,
+      number_of_children: createdUser.numberOfChildren,
+      birthplace: createdUser.birthplace,
+      registrant_id: createdUser.fkRegistrant,
+      created_at: createdUser.createdAt,
+    };
 
   }
 }

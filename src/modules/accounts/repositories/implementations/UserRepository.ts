@@ -2,6 +2,7 @@ import { prisma } from '../../../../prisma';
 import { IUserRepository } from "../IUserRepository";
 import { User } from "@prisma/client";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
+import { IListUserResponseDTO } from '../../dtos/IListUserResponseDTO';
 
 export class UserRepository implements IUserRepository {
 
@@ -57,8 +58,56 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  async list(): Promise<User[]> {
-    return await prisma.user.findMany();
+  async list(): Promise<IListUserResponseDTO[]> {
+    return await prisma.user.findMany({
+      select: {
+        fullname: true,
+        firstPhone: true,
+        birthdate: true,
+        cpf: true,
+        email: true,
+        numberOfChildren: true,
+        birthplace: true,
+        createdAt: true,
+        Gender: {
+          select: {
+            name: true,
+          }
+        },
+        Address: {
+          select: {
+            postalCode: true,
+            number: true,
+          }
+        },
+        MaritalStatus: {
+          select: {
+            name: true,
+          }
+        },
+        EducationLevel: {
+          select: {
+            name: true,
+          }
+        },
+        Registrant: {
+          select: {
+            userId: true
+          }
+        },
+        Phone: {
+          select: {
+            telefone: true
+          }
+        },
+        UpdateInformation: {
+          select: {
+            createdAt: true,
+            employeeId: true
+          }
+        },
+      },
+    });
   }
 
 }

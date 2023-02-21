@@ -66,7 +66,55 @@ class UserRepository {
     }
     list() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prisma_1.prisma.user.findMany();
+            return yield prisma_1.prisma.user.findMany({
+                select: {
+                    fullname: true,
+                    firstPhone: true,
+                    birthdate: true,
+                    cpf: true,
+                    email: true,
+                    numberOfChildren: true,
+                    birthplace: true,
+                    createdAt: true,
+                    Gender: {
+                        select: {
+                            name: true,
+                        }
+                    },
+                    Address: {
+                        select: {
+                            postalCode: true,
+                            number: true,
+                        }
+                    },
+                    MaritalStatus: {
+                        select: {
+                            name: true,
+                        }
+                    },
+                    EducationLevel: {
+                        select: {
+                            name: true,
+                        }
+                    },
+                    Registrant: {
+                        select: {
+                            userId: true
+                        }
+                    },
+                    Phone: {
+                        select: {
+                            telefone: true
+                        }
+                    },
+                    UpdateInformation: {
+                        select: {
+                            createdAt: true,
+                            employeeId: true
+                        }
+                    },
+                },
+            });
         });
     }
 }

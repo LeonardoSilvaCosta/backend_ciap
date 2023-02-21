@@ -41,11 +41,25 @@ class CreateUserUseCase {
                 registrantId: registrant_id,
                 createdAt: new Date(),
             });
-            yield this.createAddressUseCase.execute({
+            const createdAddress = yield this.createAddressUseCase.execute({
                 fkUser: createdUser.id,
                 address: { postal_code, number }
             });
-            return createdUser;
+            return {
+                fullname: createdUser.fullname,
+                birthdate: createdUser.birthdate,
+                cpf: createdUser.cpf,
+                gender: createdUser.fkGender,
+                first_phone: createdUser.firstPhone,
+                email: createdUser.email,
+                address: createdAddress,
+                marital_status: createdUser.fkMaritalStatus,
+                education_level: createdUser.fkEducationLevel,
+                number_of_children: createdUser.numberOfChildren,
+                birthplace: createdUser.birthplace,
+                registrant_id: createdUser.fkRegistrant,
+                created_at: createdUser.createdAt,
+            };
         });
     }
 }
