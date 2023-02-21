@@ -32,13 +32,13 @@ API em Node.js para um sistema de gestão de prontuários
 - [x] GET /me 📚
 
 ##### Genders
-- [x] POST /users
+- [x] POST /genders 📚
 
 ##### Marital Status
-- [x] POST /users
+- [x] POST /maritalStatus 📚
 
 ##### EducationLevel
-- [x] POST /users
+- [x] POST /educationLevels 📚
 
 
 #### Funcionalidades
