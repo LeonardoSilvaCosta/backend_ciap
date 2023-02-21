@@ -1,3 +1,4 @@
+
 import { User } from "@prisma/client";
 import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
 import { IGetUserResponseDTO } from "../dtos/IGetUserResponseDTO";

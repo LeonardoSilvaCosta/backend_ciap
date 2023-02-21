@@ -4,20 +4,33 @@
     "files": true
   },
   "compilerOptions": {
+    "moduleResolution": "node",
+    "paths": {
+      "@prisma/client": [
+        "./src/prisma/client"
+      ]
+    },
     "experimentalDecorators": true,
     "target": "es2016",
     "lib": [
       "es6"
     ],
     "module": "commonjs",
-    "rootDir": "src",
+    "rootDir": "./src",
     "allowJs": true,
     "resolveJsonModule": true,
-    "outDir": "build",
+    "outDir": "./build",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
     "skipLibCheck": false
   },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }
