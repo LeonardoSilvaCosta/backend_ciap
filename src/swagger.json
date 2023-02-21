@@ -10,14 +10,14 @@
     "version": "1.0.0"
   },
   "paths": {
-    "tags": [
-      "Funcionários"
-    ],
     "/users": {
       "post": {
-        "description": "Cria um funcionário",
+        "description": "Cria um usuário",
+        "tags": [
+          "Usuários"
+        ],
         "requestBody": {
-          "description": "Dados necessários para cadastro de um funcionário",
+          "description": "Dados necessários para cadastro de um usuário",
           "content": {
             "application/json": {
               "schema": {
@@ -28,7 +28,7 @@
         },
         "responses": {
           "200": {
-            "description": "Funcionário criado com sucesso.",
+            "description": "Usuário criado com sucesso.",
             "content": {
               "application/json": {
                 "schema": {
@@ -38,7 +38,7 @@
             }
           },
           "400": {
-            "description": "Funcionário já existe."
+            "description": "Usuário já foi cadastrado."
           },
           "500": {
             "description": "Erro servidor."
@@ -46,7 +46,10 @@
         }
       },
       "get": {
-        "description": "Lista os funcionários cadastrados",
+        "description": "Lista os usuários cadastrados",
+        "tags": [
+          "Usuários"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -54,7 +57,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Funcionário criado com sucesso.",
+            "description": "Usuário criado com sucesso.",
             "content": {
               "application/json": {
                 "schema": {
@@ -69,8 +72,8 @@
           "401": {
             "description": "Token inválido."
           },
-          "204": {
-            "description": "Nenhum funcionário cadastrado."
+          "404": {
+            "description": "Nenhum Usuário encontrado."
           },
           "500": {
             "description": "Erro servidor."
@@ -81,6 +84,9 @@
     "/sessions": {
       "post": {
         "description": "Autentica o usuário na aplicação.",
+        "tags": [
+          "Usuários"
+        ],
         "requestBody": {
           "description": "O usuário é autenticado na aplicação informando as suas credenciais de acesso.",
           "content": {
@@ -113,7 +119,10 @@
     },
     "/me": {
       "get": {
-        "description": "Retorna os dados do funcionário logado",
+        "description": "Retorna os dados do usuário logado",
+        "tags": [
+          "Usuários"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -134,7 +143,115 @@
             "description": "Token inválido."
           },
           "404": {
-            "description": "Funcionário não encontrado."
+            "description": "Usuário não encontrado."
+          },
+          "500": {
+            "description": "Erro servidor."
+          }
+        }
+      }
+    },
+    "/genders": {
+      "post": {
+        "description": "Cria uma opção de sexo na tabela genders.",
+        "tags": [
+          "Sexo"
+        ],
+        "requestBody": {
+          "description": "Dados necessários para o cadastro de um sexo.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGender"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sexo criado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateGender"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Esse sexo já foi cadastrado."
+          },
+          "500": {
+            "description": "Erro servidor."
+          }
+        }
+      }
+    },
+    "/maritalStatus": {
+      "post": {
+        "description": "Cria uma opção de estado civil na tabela marital_status.",
+        "tags": [
+          "Estado civil"
+        ],
+        "requestBody": {
+          "description": "Dados necessários para o cadastro de um estado civil.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMarialStatus"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estado civil criado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateMaritalStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Esse estado civil já foi cadastrado."
+          },
+          "500": {
+            "description": "Erro servidor."
+          }
+        }
+      }
+    },
+    "/educationLevels": {
+      "post": {
+        "description": "Cria uma opção de escolaridade na tabela edication_levels.",
+        "tags": [
+          "Escolaridade"
+        ],
+        "requestBody": {
+          "description": "Dados necessários para o cadastro de uma escolaridade.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEducationLevel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Escolaridade criada com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateEducationLevel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Essa escolaridade já foi cadastrada."
           },
           "500": {
             "description": "Erro servidor."
@@ -478,7 +595,7 @@
         }
       },
       "Phone": {
-        "description": "objeto que armazena um número de telefone do usuário.",
+        "description": "Objeto que armazena um número de telefone do usuário.",
         "type": "object",
         "properties": {
           "phone": {
@@ -506,6 +623,57 @@
             "employeeId": "6adae8b2-af95-4608-8974-f5b677b8a98c"
           }
         ]
+      },
+      "CreateGender": {
+        "description": "Objeto que armazena as opções de sexo.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "6adae8b2-af95-4608-8974-f5b677b8a98c",
+          "name": "Masculino"
+        }
+      },
+      "CreateEducationLevel": {
+        "description": "Objeto que armazena as opções de escolaridade.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "6adae8b2-af95-4608-8974-f5b677b8a98c",
+          "name": "Médio completo."
+        }
+      },
+      "CreateMaritalStatus": {
+        "description": "Objeto que armazena as opções de estado civil.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "6adae8b2-af95-4608-8974-f5b677b8a98c",
+          "name": "Solteiro(a)"
+        }
       }
     },
     "securitySchemes": {
