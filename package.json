@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "yarn nodemon",
     "build": "rimraf ./build && tsc",
-    "start": "npm run node build/server.js"
+    "start": "yarn run node build/server.js"
   },
   "author": "Leonardo Costa",
   "license": "MIT",
