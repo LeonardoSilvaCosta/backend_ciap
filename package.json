@@ -54,6 +54,7 @@
     "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
     "rimraf": "^4.1.2",
-    "supertest": "^6.3.3"
+    "supertest": "^6.3.3",
+    "tsc": "^2.0.4"
   }
 }
