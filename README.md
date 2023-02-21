@@ -26,10 +26,10 @@ API em Node.js para um sistema de gestão de prontuários
 
 ##### Users
 
-- [x] GET /users  📜
-- [x] POST /users 📜
+- [x] GET /users  📚
+- [x] POST /users 📚
 - [x] POST /sessions 📚
-- [x] GET /me 📜
+- [x] GET /me 📚
 
 ##### Genders
 - [x] POST /users
@@ -77,7 +77,7 @@ API em Node.js para um sistema de gestão de prontuários
 
 ### Legenda de Ícones
 
-- 📚: Significa que a rota ou funcionalidade está documentada.
+- 📚: Significa que a rota ou funcionalidade está documentada e com a documentação atualizada.
 - 📜: O pergaminho, nesse contexto, está sendo utilizado para indicar documentação antiga, que precisa ser revisada e ou revisada.
 - 🔬: Indica funcionalidades testadas.
 ---
