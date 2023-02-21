@@ -10,7 +10,7 @@
       "es6"
     ],
     "module": "commonjs",
-    "rootDir": ".",
+    "rootDir": "src",
     "allowJs": true,
     "resolveJsonModule": true,
     "outDir": "build",
@@ -20,7 +20,4 @@
     "noImplicitAny": true,
     "skipLibCheck": false
   },
-  "include": [
-    "src",
-  ]
 }
