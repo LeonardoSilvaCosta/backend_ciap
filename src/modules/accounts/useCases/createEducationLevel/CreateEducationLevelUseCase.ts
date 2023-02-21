@@ -9,7 +9,7 @@ export class CreateEducationLevelUseCase {
 
   async execute(name: string): Promise<EducationLevel> {
 
-    const educationLevelAlreadyExists = await this.educationLevelRepository.findById(name);
+    const educationLevelAlreadyExists = await this.educationLevelRepository.findByName(name);
 
     if (educationLevelAlreadyExists) {
       throw new AppError("Education level already exists.")

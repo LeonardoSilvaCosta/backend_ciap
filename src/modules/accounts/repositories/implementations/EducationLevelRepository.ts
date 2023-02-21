@@ -20,6 +20,14 @@ export class EducationLevelRepository implements IEducationLevelRepository {
     return educationLevel;
   }
 
+  async findByName(name: string): Promise<EducationLevel | null> {
+    const educationLevel = await prisma.educationLevel.findUnique({
+      where: { name }
+    })
+
+    return educationLevel;
+  }
+
   async list(): Promise<EducationLevel[]> {
     return await prisma.educationLevel.findMany();
   }

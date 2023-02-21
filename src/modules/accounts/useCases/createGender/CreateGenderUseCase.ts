@@ -9,7 +9,7 @@ export class CreateGenderUseCase {
 
   async execute(name: string): Promise<Gender> {
 
-    const genderAlreadyExists = await this.genreRepository.findById(name);
+    const genderAlreadyExists = await this.genreRepository.findByName(name);
 
     if (genderAlreadyExists) {
       throw new AppError("Gender already exists.")

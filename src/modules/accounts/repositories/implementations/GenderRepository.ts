@@ -20,6 +20,14 @@ export class GenderRepository implements IGenderRepository {
     return gender;
   }
 
+  async findByName(name: string): Promise<Gender | null> {
+    const gender = await prisma.gender.findUnique({
+      where: { name }
+    })
+
+    return gender;
+  }
+
   async list(): Promise<Gender[]> {
     return await prisma.gender.findMany();
   }

@@ -2,9 +2,9 @@
   "name": "backend-ciap",
   "version": "1.0.0",
   "description": "Projeto de gestão de prontuários desenvolvido para o CIAP",
-  "main": "server.js",
+  "main": "server.ts",
   "prisma": {
-    "seed": "ts-node prisma/seed.js"
+    "seed": "ts-node prisma/seed.ts"
   },
   "scripts": {
     "dev": "yarn nodemon",

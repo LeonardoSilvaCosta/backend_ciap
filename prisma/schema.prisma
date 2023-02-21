@@ -89,7 +89,7 @@ model Phone {
 
 model Gender {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   users User[]
 
@@ -109,7 +109,7 @@ model Address {
 
 model MaritalStatus {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   users User[]
 
@@ -118,7 +118,7 @@ model MaritalStatus {
 
 model EducationLevel {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   users User[]
 
@@ -127,7 +127,7 @@ model EducationLevel {
 
 model Unit {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   employee Employee[]
 
@@ -136,7 +136,7 @@ model Unit {
 
 model AdministrativeRole {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   employee Employee[]
 
@@ -145,7 +145,7 @@ model AdministrativeRole {
 
 model EmployeementStatus {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   employee Employee[]
 
@@ -154,7 +154,7 @@ model EmployeementStatus {
 
 model Rank {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   employee Employee[]
 
@@ -163,7 +163,7 @@ model Rank {
 
 model Personnel {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   employee Employee[]
 
@@ -172,7 +172,7 @@ model Personnel {
 
 model Especialty {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   especialists Especialist[]
 

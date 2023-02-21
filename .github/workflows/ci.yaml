@@ -70,27 +70,3 @@ jobs:
         run: npx prisma migrate deploy
         env:
           DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
-
-  seed:
-    runs-on: ubuntu-latest
-
-    needs: generate
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup Nodejs
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18.x
-          cache: "yarn"
-
-      - name: Install
-        run: yarn install
-
-      - run: rm -rf node_modules/.prisma
-
-      - name: Run Seeds
-        run: npx prisma db seed
-        env:
-          DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}

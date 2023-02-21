@@ -19,6 +19,14 @@ export class MaritalStatusRepository implements IMaritalStatusRepository {
     return maritalStatus;
   }
 
+  async findByName(name: string): Promise<MaritalStatus | null> {
+    const maritalStatus = await prisma.maritalStatus.findUnique({
+      where: { name }
+    })
+
+    return maritalStatus;
+  }
+
   async list(): Promise<MaritalStatus[]> {
     return await prisma.maritalStatus.findMany();
   }

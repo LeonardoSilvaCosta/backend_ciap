@@ -9,7 +9,7 @@ export class CreateMaritalStatusUseCase {
 
   async execute(name: string): Promise<Gender> {
 
-    const maritalStatusAlreadyExists = await this.maritalStatusRepository.findById(name);
+    const maritalStatusAlreadyExists = await this.maritalStatusRepository.findByName(name);
 
     if (maritalStatusAlreadyExists) {
       throw new AppError("Marital status already exists.")
