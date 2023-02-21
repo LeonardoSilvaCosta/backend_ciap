@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "./prisma/**/*.*"
+      - "./prisma/seed.ts"
   workflow_dispatch:
     branches: [main]
 
@@ -17,7 +18,7 @@ jobs:
       - name: Setup Nodejs
         uses: actions/setup-node@v2
         with:
-          node-version: 18.x
+          node-version: 16.x
           cache: "yarn"
 
       - name: Install
@@ -36,7 +37,7 @@ jobs:
       - name: Setup Nodejs
         uses: actions/setup-node@v2
         with:
-          node-version: 18.x
+          node-version: 16.x
           cache: "yarn"
 
       - name: Install
@@ -58,7 +59,7 @@ jobs:
       - name: Setup Nodejs
         uses: actions/setup-node@v2
         with:
-          node-version: 18.x
+          node-version: 16.x
           cache: "yarn"
 
       - name: Install
