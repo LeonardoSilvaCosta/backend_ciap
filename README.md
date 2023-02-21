@@ -9,6 +9,7 @@
 - [Sobre](#sobre)
 - [Features](#features)
 - [Tecnologias](#tecnologias)
+- [Legenda de ícones](#icones)
 - [Autor](#autores)
 <!--te-->
 
@@ -24,10 +25,11 @@ API em Node.js para um sistema de gestão de prontuários
 #### Rotas
 
 ##### Users
-- [x] GET /users
-- [x] POST /users
-- [x] POST /sessions
-- [x] GET /me
+
+- [x] GET /users  📚
+- [x] POST /users 📚
+- [x] POST /sessions 📚
+- [x] GET /me 📚
 
 ##### Genders
 - [x] POST /users
@@ -37,6 +39,7 @@ API em Node.js para um sistema de gestão de prontuários
 
 ##### EducationLevel
 - [x] POST /users
+
 
 #### Funcionalidades
 - [x] Integração com banco de dados PostgreSQL
@@ -72,7 +75,10 @@ API em Node.js para um sistema de gestão de prontuários
 - [VSCode](https://code.visualstudio.com/)
 ---
 
+### Legenda de Ícones
 
+- 📚: Significa que a rota ou funcionalidade está documentada.
+---
 ### Autor
 
 [Leonardo Costa](https://www.linkedin.com/in/leonardo-da-silva-costa/)
