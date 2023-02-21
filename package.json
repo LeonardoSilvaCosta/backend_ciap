@@ -4,7 +4,7 @@
   "description": "Projeto de gestão de prontuários desenvolvido para o CIAP",
   "main": "server.js",
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.js"
   },
   "scripts": {
     "dev": "yarn nodemon",
