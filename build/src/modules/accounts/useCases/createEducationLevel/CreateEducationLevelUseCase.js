@@ -17,7 +17,7 @@ class CreateEducationLevelUseCase {
     }
     execute(name) {
         return __awaiter(this, void 0, void 0, function* () {
-            const educationLevelAlreadyExists = yield this.educationLevelRepository.findById(name);
+            const educationLevelAlreadyExists = yield this.educationLevelRepository.findByName(name);
             if (educationLevelAlreadyExists) {
                 throw new AppError_1.AppError("Education level already exists.");
             }

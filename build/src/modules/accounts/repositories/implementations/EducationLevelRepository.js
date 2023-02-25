@@ -29,6 +29,14 @@ class EducationLevelRepository {
             return educationLevel;
         });
     }
+    findByName(name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const educationLevel = yield prisma_1.prisma.educationLevel.findUnique({
+                where: { name }
+            });
+            return educationLevel;
+        });
+    }
     list() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield prisma_1.prisma.educationLevel.findMany();

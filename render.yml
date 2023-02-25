@@ -1,8 +1,7 @@
 version: 2.0
 
 build:
-  command: npm run build
+  command: yarn tsc
 
 deploy:
-  command:
-    - node build/src/server.js
+  command: node build/src/server.js

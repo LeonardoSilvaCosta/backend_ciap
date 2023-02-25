@@ -17,7 +17,7 @@ class CreateGenderUseCase {
     }
     execute(name) {
         return __awaiter(this, void 0, void 0, function* () {
-            const genderAlreadyExists = yield this.genreRepository.findById(name);
+            const genderAlreadyExists = yield this.genreRepository.findByName(name);
             if (genderAlreadyExists) {
                 throw new AppError_1.AppError("Gender already exists.");
             }

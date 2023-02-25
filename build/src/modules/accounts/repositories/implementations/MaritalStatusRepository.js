@@ -29,6 +29,14 @@ class MaritalStatusRepository {
             return maritalStatus;
         });
     }
+    findByName(name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const maritalStatus = yield prisma_1.prisma.maritalStatus.findUnique({
+                where: { name }
+            });
+            return maritalStatus;
+        });
+    }
     list() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield prisma_1.prisma.maritalStatus.findMany();

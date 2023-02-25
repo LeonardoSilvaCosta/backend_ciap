@@ -29,6 +29,14 @@ class GenderRepository {
             return gender;
         });
     }
+    findByName(name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const gender = yield prisma_1.prisma.gender.findUnique({
+                where: { name }
+            });
+            return gender;
+        });
+    }
     list() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield prisma_1.prisma.gender.findMany();

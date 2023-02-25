@@ -17,7 +17,7 @@ class CreateMaritalStatusUseCase {
     }
     execute(name) {
         return __awaiter(this, void 0, void 0, function* () {
-            const maritalStatusAlreadyExists = yield this.maritalStatusRepository.findById(name);
+            const maritalStatusAlreadyExists = yield this.maritalStatusRepository.findByName(name);
             if (maritalStatusAlreadyExists) {
                 throw new AppError_1.AppError("Marital status already exists.");
             }
