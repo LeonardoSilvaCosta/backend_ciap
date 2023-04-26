@@ -45,7 +45,6 @@ model Employee {
   Phones             EmployeePhone[]     @relation(name: "phones")
 
   RegisteredGenders             Gender[]             @relation(name: "gender_created_by")
-  RegisteredAddresses           EmployeeAddress[]    @relation(name: "address_created_by")
   RegisteredMaritalStatus       MaritalStatus[]      @relation(name: "marital_status_created_by")
   RegisteredEducationLevels     EducationLevel[]     @relation(name: "education_level_created_by")
   RegisteredUnits               Unit[]               @relation(name: "unit_created_by")
@@ -55,7 +54,6 @@ model Employee {
   RegisteredBoards              Board[]              @relation(name: "board_created_by")
   RegisteredSpecialties         Specialty[]          @relation(name: "specialty_created_by")
   RegisteredEmployees           Employee[]           @relation(name: "employee_created_by")
-  RegisteredPhones              EmployeePhone[]      @relation(name: "phone_created_by")
   RegisteredUpdates             EmployeeUpdate[]     @relation(name: "update_created_by")
   RegisteredClients             Client[]             @relation(name: "client_created_by")
   RegisteredClientPhones        ClientPhone[]        @relation(name: "client_phone_created_by")
@@ -118,10 +116,8 @@ model EmployeePhone {
   employeeId String   @map("employee_id")
   phone      String
   createdAt  DateTime @default(now()) @map("created_at")
-  createdBy  String   @map("created_by")
 
-  Employee  Employee @relation(name: "phones", fields: [employeeId], references: [id])
-  CreatedBy Employee @relation(name: "phone_created_by", fields: [createdBy], references: [id])
+  Employee Employee @relation(name: "phones", fields: [employeeId], references: [id])
 
   @@id([employeeId, phone])
   @@unique([employeeId, phone])
@@ -133,10 +129,8 @@ model EmployeeAddress {
   postalCode String   @map("postal_code")
   number     Int
   createdAt  DateTime @default(now()) @map("created_at")
-  createdBy  String   @map("created_by")
 
-  Employee  Employee @relation("address", fields: [employeeId], references: [id])
-  CreatedBy Employee @relation(name: "address_created_by", fields: [createdBy], references: [id])
+  Employee Employee @relation("address", fields: [employeeId], references: [id])
 
   @@map("employee_addresses")
 }

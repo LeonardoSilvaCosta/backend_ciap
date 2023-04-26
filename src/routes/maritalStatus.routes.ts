@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { CreateMaritalStatusController } from '../modules/accounts/useCases/createMaritalStatus/CreateMaritalStatusController';
+import { CreateMaritalStatusController } from '../modules/maritalStatus/useCases/createMaritalStatus/CreateMaritalStatusController';
 
 export const maritalStatusRoutes = Router();
 

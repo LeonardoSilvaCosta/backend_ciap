@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ensureAuthenticated = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
 const AppError_1 = require("../errors/AppError");
-const UserRepository_1 = require("../modules/accounts/repositories/implementations/UserRepository");
+const EmployeeRepository_1 = require("../modules/employees/repositories/implementations/EmployeeRepository");
 function ensureAuthenticated(request, response, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const authHeader = request.headers.authorization;
@@ -21,14 +21,14 @@ function ensureAuthenticated(request, response, next) {
         }
         const [, token] = authHeader.split(" ");
         try {
-            const { sub: user_id } = (0, jsonwebtoken_1.verify)(token, "36167ff97a72db6e8e4ada9823d96c03");
-            const usersRepository = new UserRepository_1.UserRepository();
-            const user = yield usersRepository.findById(user_id);
+            const { sub: employee_id } = (0, jsonwebtoken_1.verify)(token, "36167ff97a72db6e8e4ada9823d96c03");
+            const usersRepository = new EmployeeRepository_1.EmployeeRepository();
+            const user = yield usersRepository.findById(employee_id);
             if (!user) {
                 throw new AppError_1.AppError("User does not exists!");
             }
-            request.user = {
-                id: user_id,
+            request.employee = {
+                id: employee_id,
             };
             next();
         }

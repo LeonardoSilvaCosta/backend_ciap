@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { CreateGenderController } from '../modules/accounts/useCases/createGender/CreateGenderController';
+import { CreateGenderController } from '../modules/genders/useCases/createGender/CreateGenderController';
 
 export const gendersRoutes = Router();
 

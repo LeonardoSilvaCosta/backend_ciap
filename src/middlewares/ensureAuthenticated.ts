@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from 'jsonwebtoken';
 import { AppError } from "../errors/AppError";
-import { UserRepository } from "../modules/accounts/repositories/implementations/UserRepository";
+import { EmployeeRepository } from "../modules/employees/repositories/implementations/EmployeeRepository";
 
 interface IPayload {
   sub: string,
@@ -19,18 +19,18 @@ export async function ensureAuthenticated(request: Request, response: Response, 
 
 
   try {
-    const { sub: user_id } = verify(token, "36167ff97a72db6e8e4ada9823d96c03") as IPayload;
+    const { sub: employee_id } = verify(token, "36167ff97a72db6e8e4ada9823d96c03") as IPayload;
 
-    const usersRepository = new UserRepository();
+    const usersRepository = new EmployeeRepository();
 
-    const user = await usersRepository.findById(user_id);
+    const user = await usersRepository.findById(employee_id);
 
     if (!user) {
       throw new AppError("User does not exists!")
     }
 
-    request.user = {
-      id: user_id,
+    request.employee = {
+      id: employee_id,
     }
 
     next();

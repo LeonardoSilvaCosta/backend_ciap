@@ -1,0 +1,21 @@
+import { AdministrativeRole } from "@prisma/client";
+import { AppError } from "../../../../errors/AppError";
+import { IAdministrativeRoleRepository } from "../../../employees/repositories/IAdministrativeRoleRepository";
+
+export class CreateAdministrativeRoleUseCase {
+  constructor(
+    private administrativeRoleRepository: IAdministrativeRoleRepository,
+  ) { }
+
+  async execute(employee_id: string, name: string): Promise<AdministrativeRole> {
+
+    const administrativeRoleAlreadyExists = await this.administrativeRoleRepository.findByName(name);
+
+    if (administrativeRoleAlreadyExists) {
+      throw new AppError("Administrative Role already exists.")
+    };
+
+    return await this.administrativeRoleRepository.create(name, employee_id);
+
+  }
+}

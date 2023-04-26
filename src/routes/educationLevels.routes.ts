@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { CreateEducationLevelController } from '../modules/accounts/useCases/createEducationLevel/CreateEducationLevelController';
+import { CreateEducationLevelController } from '../modules/educationLevels/useCases/createEducationLevel/CreateEducationLevelController';
 
 export const educationLevelsRoutes = Router();
 
