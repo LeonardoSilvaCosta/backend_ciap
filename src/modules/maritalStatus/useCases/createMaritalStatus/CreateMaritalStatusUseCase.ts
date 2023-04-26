@@ -1,6 +1,6 @@
 import { MaritalStatus } from "@prisma/client";
 import { AppError } from "../../../../errors/AppError";
-import { IMaritalStatusRepository } from "../../../employees/repositories/IMaritalStatusRepository";
+import { IMaritalStatusRepository } from "../../repositories/IMaritalStatusRepository";
 
 export class CreateMaritalStatusUseCase {
   constructor(

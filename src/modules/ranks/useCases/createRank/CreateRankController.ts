@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreateRankUseCase } from "./CreateRankUseCase";
-import { RankRepository } from "../../../employees/repositories/implementations/RankRepository";
+import { RankRepository } from "../../repositories/implementations/RankRepository";
 
 export class CreateRankController {
 

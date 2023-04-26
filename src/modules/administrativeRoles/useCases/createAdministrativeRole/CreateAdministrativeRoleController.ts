@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { AdministrativeRoleRepository } from "../../../employees/repositories/implementations/AdministrativeRoleRepository";
 import { CreateAdministrativeRoleUseCase } from "./CreateAdministrativeRoleUseCase";
+import { AdministrativeRoleRepository } from "../../repositories/implementations/AdministrativeRoleRepository";
 
 export class CreateAdministrativeRoleController {
 

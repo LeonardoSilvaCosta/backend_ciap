@@ -1,6 +1,6 @@
 import { Rank } from "@prisma/client";
 import { AppError } from "../../../../errors/AppError";
-import { IRankRepository } from "../../../employees/repositories/IRankRepository";
+import { IRankRepository } from "../../repositories/IRankRepository";
 
 export class CreateRankUseCase {
   constructor(

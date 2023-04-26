@@ -1,6 +1,6 @@
 import { JobStatus } from "@prisma/client";
 import { AppError } from "../../../../errors/AppError";
-import { IJobStatusRepository } from "../../../employees/repositories/IJobStatusRepository";
+import { IJobStatusRepository } from "../../repositories/IJobStatusRepository";
 
 export class CreateJobStatusUseCase {
   constructor(

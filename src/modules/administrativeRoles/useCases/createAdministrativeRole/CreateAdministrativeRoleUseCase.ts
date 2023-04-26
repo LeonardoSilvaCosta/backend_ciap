@@ -1,6 +1,6 @@
 import { AdministrativeRole } from "@prisma/client";
 import { AppError } from "../../../../errors/AppError";
-import { IAdministrativeRoleRepository } from "../../../employees/repositories/IAdministrativeRoleRepository";
+import { IAdministrativeRoleRepository } from "../../repositories/IAdministrativeRoleRepository";
 
 export class CreateAdministrativeRoleUseCase {
   constructor(

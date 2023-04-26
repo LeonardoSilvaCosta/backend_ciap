@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { EducationLevelRepository } from "../../../employees/repositories/implementations/EducationLevelRepository";
 import { CreateEducationLevelUseCase } from "./CreateEducationLevelUseCase";
+import { EducationLevelRepository } from "../../repositories/implementations/EducationLevelRepository";
 
 export class CreateEducationLevelController {
 

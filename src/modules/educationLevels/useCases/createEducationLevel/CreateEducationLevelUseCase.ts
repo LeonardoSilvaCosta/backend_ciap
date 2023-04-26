@@ -1,6 +1,6 @@
 import { EducationLevel } from "@prisma/client";
 import { AppError } from "../../../../errors/AppError";
-import { IEducationLevelRepository } from "../../../employees/repositories/IEducationLevelRepository";
+import { IEducationLevelRepository } from "../../repositories/IEducationLevelRepository";
 
 export class CreateEducationLevelUseCase {
   constructor(

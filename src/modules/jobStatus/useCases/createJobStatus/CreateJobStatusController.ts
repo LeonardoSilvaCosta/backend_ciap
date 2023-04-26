@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreateJobStatusUseCase } from "./CreateJobStatusUseCase";
-import { JobStatusRepository } from "../../../employees/repositories/implementations/JobStatusRepository";
+import { JobStatusRepository } from "../../repositories/implementations/JobStatusRepository";
 
 export class CreateJobStatusController {
 

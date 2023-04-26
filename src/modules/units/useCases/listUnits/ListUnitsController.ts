@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { ListEmployeesUseCase } from "./ListUsersUseCase";
 import { UnitRepository } from "../../repositories/implementations/UnitRepository";
+import { ListUnitsUseCase } from "./ListUnitsUseCase";
 
 export class ListUnitsController {
 
   async handle(request: Request, response: Response): Promise<Response> {
-    const listUnitsUseCase = new ListEmployeesUseCase(new UnitRepository);
+    const listUnitsUseCase = new ListUnitsUseCase(new UnitRepository);
 
     const all = await listUnitsUseCase.execute();
 

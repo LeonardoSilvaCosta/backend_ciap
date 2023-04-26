@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { MaritalStatusRepository } from "../../../employees/repositories/implementations/MaritalStatusRepository";
 import { CreateMaritalStatusUseCase } from "./CreateMaritalStatusUseCase";
+import { MaritalStatusRepository } from "../../repositories/implementations/MaritalStatusRepository";
 
 export class CreateMaritalStatusController {
 
