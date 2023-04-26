@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { CreateEmployeeController } from '../modules/employees/useCases/createEmployee/CreateEmployeeController';
-import { ListEmployeesController } from '../modules/employees/useCases/listEmployees/ListUsersController';
+import { ListEmployeesController } from '../modules/employees/useCases/listEmployees/ListEmployeesController';
 
 export const employeeRoutes = Router();
 

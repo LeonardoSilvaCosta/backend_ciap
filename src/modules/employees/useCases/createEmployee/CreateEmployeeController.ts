@@ -5,13 +5,16 @@ import { EmployeeRepository } from "../../repositories/implementations/EmployeeR
 import { ICreateEmployeeRequestDTO } from "../../dtos/ICreateEmployeeRequestDTO";
 import { CreateEmployeeAddressUseCase } from "../createEmployeeAddress/CreateEmployeeAddressUseCase";
 import { EmployeeAddressRepository } from "../../repositories/implementations/EmployeeAddressRepository";
+import { EmployeePhoneRepository } from "../../repositories/implementations/EmployeePhoneRepository";
+import { CreateEmployeePhoneUseCase } from "../createEmployeePhone/CreateEmployeePhoneUseCase";
 
 export class CreateEmployeeController {
 
   async handle(request: Request, response: Response): Promise<Response> {
     const createEmployeeUseCase = new CreateEmployeeUseCase(
       new EmployeeRepository,
-      new CreateEmployeeAddressUseCase(new EmployeeAddressRepository)
+      new CreateEmployeeAddressUseCase(new EmployeeAddressRepository),
+      new CreateEmployeePhoneUseCase( new EmployeePhoneRepository)
     );
     const {
       avatar,
@@ -20,7 +23,7 @@ export class CreateEmployeeController {
       cpf,
       gender_id,
       email,
-      address: { postal_code, number },
+      address,
       marital_status_id,
       education_level_id,
       number_of_children,
@@ -43,7 +46,7 @@ export class CreateEmployeeController {
       cpf,
       gender_id,
       email,
-      address: { postal_code, number },
+      address,
       marital_status_id,
       education_level_id,
       number_of_children,

@@ -114,7 +114,7 @@ model EmployeePhone {
 model EmployeeAddress {
   employeeId String   @id @map("employee_id")
   postalCode String   @map("postal_code")
-  number     Int
+  number     String
   createdAt  DateTime @default(now()) @map("created_at")
 
   Employee Employee @relation("address", fields: [employeeId], references: [id])
@@ -150,7 +150,7 @@ model ClientPhone {
 model ClientAddress {
   clientId   String   @id @map("clientId")
   postalCode String   @map("postal_code")
-  number     Int
+  number     String
   createdAt  DateTime @default(now()) @map("created_at")
   createdBy  String   @map("created_by")
 

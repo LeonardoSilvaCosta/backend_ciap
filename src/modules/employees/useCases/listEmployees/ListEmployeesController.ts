@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { EmployeeRepository } from "../../repositories/implementations/EmployeeRepository";
-import { ListEmployeesUseCase } from "./ListUsersUseCase";
+import { ListEmployeesUseCase } from "./ListEmployeesUseCase";
 
 export class ListEmployeesController {
 

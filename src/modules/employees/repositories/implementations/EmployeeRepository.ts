@@ -7,6 +7,7 @@ import { IEmployeeResponseDTO } from '../../dtos/IEmployeeResponseDTO';
 export class EmployeeRepository implements IEmployeeRepository {
 
   async create(employee: ICreateEmployeeRequestDTO): Promise<IEmployeeResponseDTO> {
+    console.log(employee)
     const response = await prisma.employee.create({
       data: {
         avatar: employee.avatar,
@@ -31,6 +32,7 @@ export class EmployeeRepository implements IEmployeeRepository {
       },
       include: {
         Address: true,
+        Phones: true,
         Gender: true,
         MaritalStatus: true,
         EducationLevel: true,
@@ -52,6 +54,7 @@ export class EmployeeRepository implements IEmployeeRepository {
       cpf: response.cpf,
       gender: response.Gender,
       email: response.email,
+      phones: response.Phones,
       address: response.Address,
       marital_status: response.MaritalStatus,
       education_level: response.EducationLevel,

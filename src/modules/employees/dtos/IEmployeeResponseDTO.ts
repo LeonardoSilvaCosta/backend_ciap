@@ -1,4 +1,4 @@
-import { AdministrativeRole, Board, EducationLevel, EmployeeAddress, Gender, JobStatus, MaritalStatus, Rank, Specialty, Unit } from "@prisma/client";
+import { AdministrativeRole, Board, EducationLevel, EmployeeAddress, EmployeePhone, Gender, JobStatus, MaritalStatus, Rank, Specialty, Unit } from "@prisma/client";
 
 export interface IEmployeeResponseDTO {
     id?: string,
@@ -8,6 +8,7 @@ export interface IEmployeeResponseDTO {
     cpf: string,
     gender: Gender,
     email: string,
+    phones: string[],
     address: EmployeeAddress | null,
     marital_status: MaritalStatus,
     education_level: EducationLevel

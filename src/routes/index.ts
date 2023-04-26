@@ -11,6 +11,8 @@ import { jobStatusRoutes } from './jobStatus.routes';
 import { boardsRoutes } from './boards.routes';
 import { ranksRoutes } from './ranks.routes';
 import { specialtiesRoutes } from './specialties.routes';
+import { employeeAddressesRoutes } from './employeeAddresses.routes';
+import { employeePhonesRoutes } from './employeePhones.routes';
 
 export const router = Router()
 
@@ -26,3 +28,5 @@ router.use("/jobStatus", jobStatusRoutes)
 router.use("/ranks", ranksRoutes)
 router.use("/boards", boardsRoutes)
 router.use("/specialties", specialtiesRoutes)
+router.use("/employeeAddresses", employeeAddressesRoutes)
+router.use("/employeePhones", employeePhonesRoutes)

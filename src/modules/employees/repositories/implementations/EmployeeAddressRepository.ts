@@ -1,11 +1,11 @@
 import { EmployeeAddress } from '@prisma/client';
 import { prisma } from '../../../../prisma';
-import { ICreateAddressDTO } from '../../dtos/ICreateAddressDTO';
 import { IEmployeeAddressRepository } from '../IEmployeeAddressRepository';
+import { ICreateEmployeeAddressDTO } from '../../dtos/ICreateAddressReponseDTO';
 
 export class EmployeeAddressRepository implements IEmployeeAddressRepository {
 
-  async create({ employee_id, address }: ICreateAddressDTO): Promise<EmployeeAddress> {
+  async create({ employee_id, address }: ICreateEmployeeAddressDTO): Promise<EmployeeAddress> {
     return await prisma.employeeAddress.create({
       data: {
         employeeId: employee_id,
