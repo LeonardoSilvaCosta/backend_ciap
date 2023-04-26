@@ -4,12 +4,11 @@ import { IJobStatusRepository } from '../IJobStatusRepository';
 
 export class JobStatusRepository implements IJobStatusRepository {
 
-  async create(employee_id: string, name: string): Promise<JobStatus> {
+  async create(name: string): Promise<JobStatus> {
     return await prisma.jobStatus.create({
       data: {
         name,
         createdAt: new Date(),
-        createdBy:employee_id 
       }
     })
   }
@@ -23,7 +22,7 @@ export class JobStatusRepository implements IJobStatusRepository {
   }
 
   async findByName(name: string): Promise<JobStatus | null> {
-    const job_status = await prisma.unit.findUnique({
+    const job_status = await prisma.jobStatus.findUnique({
       where: { name }
     })
 

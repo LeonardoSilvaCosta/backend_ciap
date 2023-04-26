@@ -4,11 +4,14 @@ import { IEmployeeRepository } from '../../repositories/IEmployeeRepository';
 import { IEmployeeResponseDTO } from '../../dtos/IEmployeeResponseDTO';
 import { ICreateEmployeeRequestDTO } from '../../dtos/ICreateEmployeeRequestDTO';
 import { CreateEmployeeAddressUseCase } from '../createEmployeeAddress/CreateEmployeeAddressUseCase';
+import { CreateEmployeePhoneUseCase } from '../createEmployeePhone/CreateEmployeePhoneUseCase';
+import { ICreatePhoneDTO } from '../../dtos/ICreatePhoneDTO';
 
 export class CreateEmployeeUseCase {
   constructor(
     private employeeRepository: IEmployeeRepository,
-    private createEmployeeAddressUseCase: CreateEmployeeAddressUseCase
+    private createEmployeeAddressUseCase: CreateEmployeeAddressUseCase,
+    private createEmployeePhoneUseCase: CreateEmployeePhoneUseCase
   ) { }
 
   async execute({
@@ -18,7 +21,8 @@ export class CreateEmployeeUseCase {
     cpf,
     gender_id,
     email,
-    address: { postal_code, number },
+    phones,
+    address,
     marital_status_id,
     education_level_id,
     number_of_children,
@@ -49,7 +53,6 @@ export class CreateEmployeeUseCase {
       cpf,
       gender_id,
       email,
-      address: { postal_code, number },
       marital_status_id,
       education_level_id,
       number_of_children,
@@ -62,15 +65,24 @@ export class CreateEmployeeUseCase {
       rank_id,
       board_id,
       specialty_id,
-      password,
+      password: passwordHash,
     })
 
-     await this.createEmployeeAddressUseCase.execute({
-      employee_id: createdEmployee.id ? createdEmployee.id : "",
-      address: { postal_code, number },
-    });
+    if (address)
+      await this.createEmployeeAddressUseCase.execute({
+        employee_id: createdEmployee.id ? createdEmployee.id : "",
+        address,
+      });
 
-    //CreateEmployeePhones
+    if (phones) {
+      const phonesToSave: ICreatePhoneDTO[] = phones.map((e: string) => {
+        return {
+          employee_id: createdEmployee.id,
+          phone: e,
+        }
+      });
+      await this.createEmployeePhoneUseCase.execute(phonesToSave);
+    }
 
     return createdEmployee;
 

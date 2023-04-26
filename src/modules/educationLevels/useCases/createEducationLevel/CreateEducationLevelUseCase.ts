@@ -7,7 +7,7 @@ export class CreateEducationLevelUseCase {
     private educationLevelRepository: IEducationLevelRepository,
   ) { }
 
-  async execute(employee_id: string, name: string): Promise<EducationLevel> {
+  async execute(name: string): Promise<EducationLevel> {
 
     const educationLevelAlreadyExists = await this.educationLevelRepository.findByName(name);
 
@@ -15,7 +15,7 @@ export class CreateEducationLevelUseCase {
       throw new AppError("Education level already exists.")
     };
 
-    return await this.educationLevelRepository.create(employee_id, name);
+    return await this.educationLevelRepository.create(name);
 
   }
 }

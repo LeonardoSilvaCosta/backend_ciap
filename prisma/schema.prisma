@@ -44,24 +44,11 @@ model Employee {
   CreatedBy          Employee?           @relation(name: "employee_created_by", fields: [createdBy], references: [id])
   Phones             EmployeePhone[]     @relation(name: "phones")
 
-  RegisteredGenders             Gender[]             @relation(name: "gender_created_by")
-  RegisteredMaritalStatus       MaritalStatus[]      @relation(name: "marital_status_created_by")
-  RegisteredEducationLevels     EducationLevel[]     @relation(name: "education_level_created_by")
-  RegisteredUnits               Unit[]               @relation(name: "unit_created_by")
-  RegisteredAdministrativeRoles AdministrativeRole[] @relation(name: "administrative_role_created_by")
-  RegisteredJobStatus           JobStatus[]          @relation(name: "job_status_created_by")
-  RegisteredRanks               Rank[]               @relation(name: "rank_created_by")
-  RegisteredBoards              Board[]              @relation(name: "board_created_by")
-  RegisteredSpecialties         Specialty[]          @relation(name: "specialty_created_by")
-  RegisteredEmployees           Employee[]           @relation(name: "employee_created_by")
-  RegisteredUpdates             EmployeeUpdate[]     @relation(name: "update_created_by")
-  RegisteredClients             Client[]             @relation(name: "client_created_by")
-  RegisteredClientPhones        ClientPhone[]        @relation(name: "client_phone_created_by")
-  RegisteredClientAddresses     ClientAddress[]      @relation(name: "client_address_created_by")
-  RegisteredClientUpdates       ClientUpdate[]       @relation(name: "client_update_created_by")
-  RegisteredClientRecords       ClientRecord[]       @relation(name: "client_record_created_by")
-  RegisteredRecordStatus        RecordStatus[]       @relation(name: "record_status_created_by")
-  RegosteredTypeOfBonds         TypeOfBond[]         @relation(name: "type_of_bond_created_by")
+  RegisteredEmployees       Employee[]      @relation(name: "employee_created_by")
+  RegisteredClients         Client[]        @relation(name: "client_created_by")
+  RegisteredClientPhones    ClientPhone[]   @relation(name: "client_phone_created_by")
+  RegisteredClientAddresses ClientAddress[] @relation(name: "client_address_created_by")
+  RegisteredClientUpdates   ClientUpdate[]  @relation(name: "client_update_created_by")
 
   EmployeeUpdates EmployeeUpdate[] @relation(name: "updated_associated_with")
 
@@ -140,10 +127,8 @@ model EmployeeUpdate {
   note           String
   associatedWith String   @map("associated_with")
   createdAt      DateTime @default(now()) @map("created_at")
-  createdBy      String   @unique @map("created_by")
 
   AssociatedWith Employee @relation("updated_associated_with", fields: [associatedWith], references: [id])
-  CreatedBy      Employee @relation("update_created_by", fields: [createdBy], references: [id])
 
   @@map("employee_updates")
 }
@@ -193,11 +178,8 @@ model ClientRecord {
   fkClientId String   @map("fk_client_id")
   fkStatusId String   @map("fk_status_id")
   createdAt  DateTime @default(now()) @map("created_at")
-  createdBy  String   @unique @map("created_by")
 
   RecordStatus RecordStatus @relation(fields: [fkStatusId], references: [id])
-
-  CreatedBy Employee @relation("client_record_created_by", fields: [createdBy], references: [id])
 
   @@map("client_records")
 }
@@ -206,9 +188,6 @@ model RecordStatus {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
-
-  CreatedBy Employee @relation("record_status_created_by", fields: [createdBy], references: [id])
 
   ClientRecord ClientRecord[]
 
@@ -219,9 +198,6 @@ model Gender {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
-
-  CreatedBy Employee @relation("gender_created_by", fields: [createdBy], references: [id])
 
   Employees Employee[]
   Client    Client[]
@@ -233,9 +209,6 @@ model MaritalStatus {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
-
-  CreatedBy Employee @relation("marital_status_created_by", fields: [createdBy], references: [id])
 
   Employees Employee[]
   Client    Client[]
@@ -247,9 +220,6 @@ model EducationLevel {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
-
-  CreatedBy Employee @relation("education_level_created_by", fields: [createdBy], references: [id])
 
   Employees Employee[]
   Client    Client[]
@@ -261,9 +231,6 @@ model Unit {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
-
-  CreatedBy Employee @relation("unit_created_by", fields: [createdBy], references: [id])
 
   Employees Employee[]
   Client    Client[]
@@ -275,9 +242,6 @@ model AdministrativeRole {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
-
-  CreatedBy Employee @relation("administrative_role_created_by", fields: [createdBy], references: [id])
 
   Employee Employee[]
   Client   Client[]
@@ -289,9 +253,6 @@ model JobStatus {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
-
-  CreatedBy Employee @relation("job_status_created_by", fields: [createdBy], references: [id])
 
   Employees Employee[]
   Client    Client[]
@@ -303,9 +264,6 @@ model Rank {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
-
-  CreatedBy Employee @relation("rank_created_by", fields: [createdBy], references: [id])
 
   Employees Employee[]
   Client    Client[]
@@ -317,9 +275,6 @@ model Board {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
-
-  CreatedBy Employee @relation("board_created_by", fields: [createdBy], references: [id])
 
   Employees Employee[]
   Client    Client[]
@@ -331,9 +286,6 @@ model Specialty {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
-
-  CreatedBy Employee @relation("specialty_created_by", fields: [createdBy], references: [id])
 
   Employees Employee[]
 
@@ -344,9 +296,6 @@ model TypeOfBond {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
-
-  CreatedBy Employee @relation("type_of_bond_created_by", fields: [createdBy], references: [id])
 
   Client Client[]
 

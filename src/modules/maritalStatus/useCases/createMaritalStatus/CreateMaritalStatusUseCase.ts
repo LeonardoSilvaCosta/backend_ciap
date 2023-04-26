@@ -7,7 +7,7 @@ export class CreateMaritalStatusUseCase {
     private maritalStatusRepository: IMaritalStatusRepository,
   ) { }
 
-  async execute(employee_id: string, name: string): Promise<MaritalStatus> {
+  async execute(name: string): Promise<MaritalStatus> {
 
     const maritalStatusAlreadyExists = await this.maritalStatusRepository.findByName(name);
 
@@ -15,7 +15,7 @@ export class CreateMaritalStatusUseCase {
       throw new AppError("Marital status already exists.")
     };
 
-    return await this.maritalStatusRepository.create(employee_id, name);
+    return await this.maritalStatusRepository.create(name);
 
   }
 }

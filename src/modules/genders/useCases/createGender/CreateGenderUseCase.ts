@@ -7,7 +7,7 @@ export class CreateGenderUseCase {
     private genreRepository: IGenderRepository,
   ) { }
 
-  async execute(employee_id: string, name: string): Promise<Gender> {
+  async execute(name: string): Promise<Gender> {
 
     const genderAlreadyExists = await this.genreRepository.findByName(name);
 
@@ -15,7 +15,7 @@ export class CreateGenderUseCase {
       throw new AppError("Gender already exists.")
     };
 
-    return await this.genreRepository.create(name, employee_id);
+    return await this.genreRepository.create(name);
 
   }
 }

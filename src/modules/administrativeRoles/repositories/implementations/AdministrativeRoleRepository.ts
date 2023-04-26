@@ -4,12 +4,11 @@ import { IAdministrativeRoleRepository } from '../IAdministrativeRoleRepository'
 
 export class AdministrativeRoleRepository implements IAdministrativeRoleRepository {
 
-  async create(employee_id: string, name: string): Promise<AdministrativeRole> {
+  async create(name: string): Promise<AdministrativeRole> {
     return await prisma.administrativeRole.create({
       data: {
         name,
         createdAt: new Date(),
-        createdBy:employee_id 
       }
     })
   }

@@ -7,7 +7,7 @@ export class CreateBoardUseCase {
     private boardRepository: IBoardRepository,
   ) { }
 
-  async execute(employee_id: string, name: string): Promise<Board> {
+  async execute(name: string): Promise<Board> {
 
     const boardAlreadyExists = await this.boardRepository.findByName(name);
 
@@ -15,7 +15,7 @@ export class CreateBoardUseCase {
       throw new AppError("Board already exists.")
     };
 
-    return await this.boardRepository.create(name, employee_id);
+    return await this.boardRepository.create(name);
 
   }
 }

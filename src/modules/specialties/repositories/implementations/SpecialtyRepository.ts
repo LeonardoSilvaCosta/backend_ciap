@@ -4,12 +4,11 @@ import { ISpecialtyRepository } from '../ISpecialtyRepository';
 
 export class SpecialtyRepository implements ISpecialtyRepository {
 
-  async create(employee_id: string, name: string): Promise<Specialty> {
+  async create(name: string): Promise<Specialty> {
     return await prisma.specialty.create({
       data: {
         name,
         createdAt: new Date(),
-        createdBy:employee_id 
       }
     })
   }

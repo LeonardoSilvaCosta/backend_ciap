@@ -7,7 +7,7 @@ export class CreateRankUseCase {
     private rankRepository: IRankRepository,
   ) { }
 
-  async execute(employee_id: string, name: string): Promise<Rank> {
+  async execute(name: string): Promise<Rank> {
 
     const rankAlreadyExists = await this.rankRepository.findByName(name);
 
@@ -15,7 +15,7 @@ export class CreateRankUseCase {
       throw new AppError("Rank already exists.")
     };
 
-    return await this.rankRepository.create(name, employee_id);
+    return await this.rankRepository.create(name);
 
   }
 }

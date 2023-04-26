@@ -4,12 +4,11 @@ import { IGenderRepository } from '../IGenderRepository';
 
 export class GenderRepository implements IGenderRepository {
 
-  async create(employee_id: string, name: string): Promise<Gender> {
+  async create(name: string): Promise<Gender> {
     return await prisma.gender.create({
       data: {
         name,
         createdAt: new Date(),
-        createdBy:employee_id 
       }
     })
   }

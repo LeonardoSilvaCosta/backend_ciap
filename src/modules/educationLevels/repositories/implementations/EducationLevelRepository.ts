@@ -4,11 +4,11 @@ import { IEducationLevelRepository } from '../IEducationLevelRepository';
 
 export class EducationLevelRepository implements IEducationLevelRepository {
 
-  async create(employee_id: string, name: string): Promise<EducationLevel> {
+  async create(name: string): Promise<EducationLevel> {
     return await prisma.educationLevel.create({
       data: {
         name,
-        createdBy: employee_id
+        createdAt: new Date()
       }
     })
   }

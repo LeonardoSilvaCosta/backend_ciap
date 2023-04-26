@@ -7,7 +7,7 @@ export class CreateUnitUseCase {
     private unitRepository: IUnitRepository,
   ) { }
 
-  async execute(employee_id: string, name: string): Promise<Unit> {
+  async execute(name: string): Promise<Unit> {
 
     const unitAlreadyExists = await this.unitRepository.findByName(name);
 
@@ -15,7 +15,7 @@ export class CreateUnitUseCase {
       throw new AppError("Unit already exists.")
     };
 
-    return await this.unitRepository.create(name, employee_id);
+    return await this.unitRepository.create(name);
 
   }
 }

@@ -7,7 +7,7 @@ export class CreateJobStatusUseCase {
     private jobStatusRepository: IJobStatusRepository,
   ) { }
 
-  async execute(employee_id: string, name: string): Promise<JobStatus> {
+  async execute(name: string): Promise<JobStatus> {
 
     const jobStatusAlreadyExists = await this.jobStatusRepository.findByName(name);
 
@@ -15,7 +15,7 @@ export class CreateJobStatusUseCase {
       throw new AppError("Job Status already exists.")
     };
 
-    return await this.jobStatusRepository.create(name, employee_id);
+    return await this.jobStatusRepository.create(name);
 
   }
 }

@@ -4,12 +4,11 @@ import { IRankRepository } from '../IRankRepository';
 
 export class RankRepository implements IRankRepository {
 
-  async create(employee_id: string, name: string): Promise<Rank> {
+  async create(name: string): Promise<Rank> {
     return await prisma.rank.create({
       data: {
         name,
         createdAt: new Date(),
-        createdBy:employee_id 
       }
     })
   }

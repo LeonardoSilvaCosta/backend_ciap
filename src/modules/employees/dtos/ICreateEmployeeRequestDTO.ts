@@ -8,7 +8,8 @@ export interface ICreateEmployeeRequestDTO {
   cpf: string,
   gender_id: string,
   email: string,
-  address: ICreateAddressRequestDTO,
+  phones?: string[],
+  address?: ICreateAddressRequestDTO,
   marital_status_id: string,
   education_level_id: string
   number_of_children: number,

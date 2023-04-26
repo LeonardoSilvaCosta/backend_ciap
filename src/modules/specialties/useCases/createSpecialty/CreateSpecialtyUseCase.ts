@@ -7,7 +7,7 @@ export class CreateSpecialtyUseCase {
     private specialtyRepository: ISpecialtyRepository,
   ) { }
 
-  async execute(employee_id: string, name: string): Promise<Specialty> {
+  async execute(name: string): Promise<Specialty> {
 
     const specialtyAlreadyExists = await this.specialtyRepository.findByName(name);
 
@@ -15,7 +15,7 @@ export class CreateSpecialtyUseCase {
       throw new AppError("Specialty already exists.")
     };
 
-    return await this.specialtyRepository.create(name, employee_id);
+    return await this.specialtyRepository.create(name);
 
   }
 }

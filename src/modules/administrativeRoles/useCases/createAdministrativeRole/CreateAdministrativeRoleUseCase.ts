@@ -7,7 +7,7 @@ export class CreateAdministrativeRoleUseCase {
     private administrativeRoleRepository: IAdministrativeRoleRepository,
   ) { }
 
-  async execute(employee_id: string, name: string): Promise<AdministrativeRole> {
+  async execute(name: string): Promise<AdministrativeRole> {
 
     const administrativeRoleAlreadyExists = await this.administrativeRoleRepository.findByName(name);
 
@@ -15,7 +15,7 @@ export class CreateAdministrativeRoleUseCase {
       throw new AppError("Administrative Role already exists.")
     };
 
-    return await this.administrativeRoleRepository.create(name, employee_id);
+    return await this.administrativeRoleRepository.create(name);
 
   }
 }

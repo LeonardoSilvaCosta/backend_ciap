@@ -3,11 +3,11 @@ import { MaritalStatus } from "@prisma/client";
 import { IMaritalStatusRepository } from '../IMaritalStatusRepository';
 
 export class MaritalStatusRepository implements IMaritalStatusRepository {
-  async create(employee_id: string, name: string): Promise<MaritalStatus> {
+  async create(name: string): Promise<MaritalStatus> {
     return await prisma.maritalStatus.create({
       data: {
         name,
-        createdBy: employee_id
+        createdAt: new Date(),
       }
     })
   }

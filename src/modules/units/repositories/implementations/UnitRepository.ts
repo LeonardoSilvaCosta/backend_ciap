@@ -4,12 +4,11 @@ import { IUnitRepository } from '../IUnitRepository';
 
 export class UnitRepository implements IUnitRepository {
 
-  async create(employee_id: string, name: string): Promise<Unit> {
+  async create(name: string): Promise<Unit> {
     return await prisma.unit.create({
       data: {
         name,
         createdAt: new Date(),
-        createdBy:employee_id 
       }
     })
   }
