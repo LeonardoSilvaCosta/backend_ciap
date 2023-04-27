@@ -1,5 +1,5 @@
 
 export interface ICreatePhoneDTO {
-  employee_id?: string,
+  employee_id: string,
   phone: string,
 }
