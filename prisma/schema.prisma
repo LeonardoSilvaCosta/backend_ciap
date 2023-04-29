@@ -104,7 +104,7 @@ model EmployeePhone {
   phone      String
   createdAt  DateTime @default(now()) @map("created_at")
 
-  Employee Employee @relation(name: "phones", fields: [employeeId], references: [id])
+  Employee Employee @relation(name: "phones", fields: [employeeId], references: [id], onDelete: Cascade)
 
   @@id([employeeId, phone])
   @@unique([employeeId, phone])
@@ -117,7 +117,7 @@ model EmployeeAddress {
   number     String
   createdAt  DateTime @default(now()) @map("created_at")
 
-  Employee Employee @relation("address", fields: [employeeId], references: [id])
+  Employee Employee @relation("address", fields: [employeeId], references: [id], onDelete: Cascade)
 
   @@map("employee_addresses")
 }
@@ -128,7 +128,7 @@ model EmployeeUpdate {
   associatedWith String   @map("associated_with")
   createdAt      DateTime @default(now()) @map("created_at")
 
-  AssociatedWith Employee @relation("updated_associated_with", fields: [associatedWith], references: [id])
+  AssociatedWith Employee @relation("updated_associated_with", fields: [associatedWith], references: [id], onDelete: Cascade)
 
   @@map("employee_updates")
 }

@@ -16,6 +16,7 @@ export class CreateEmployeeController {
       new CreateEmployeeAddressUseCase(new EmployeeAddressRepository),
       new CreateEmployeePhoneUseCase( new EmployeePhoneRepository)
     );
+    
     const {
       avatar,
       fullname,

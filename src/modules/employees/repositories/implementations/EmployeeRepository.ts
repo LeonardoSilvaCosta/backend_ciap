@@ -5,9 +5,7 @@ import { ICreateEmployeeRequestDTO } from '../../dtos/ICreateEmployeeRequestDTO'
 import { IEmployeeResponseDTO } from '../../dtos/IEmployeeResponseDTO';
 
 export class EmployeeRepository implements IEmployeeRepository {
-
   async create(employee: ICreateEmployeeRequestDTO): Promise<IEmployeeResponseDTO> {
-    console.log(employee)
     const response = await prisma.employee.create({
       data: {
         avatar: employee.avatar,
@@ -184,6 +182,14 @@ export class EmployeeRepository implements IEmployeeRepository {
     })
 
     return formattedEmployees;
+  }
+
+  async delete(id: string): Promise<void> {
+    await prisma.employee.delete({
+      where: {
+        id,
+      }
+    });
   }
 
 }

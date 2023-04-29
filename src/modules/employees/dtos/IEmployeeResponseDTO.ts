@@ -1,4 +1,4 @@
-import { EmployeeAddress, Unit } from "@prisma/client";
+import { EmployeeAddress } from "@prisma/client";
 
 export interface IEmployeeResponseDTO {
     id?: string,

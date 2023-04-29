@@ -21,12 +21,12 @@ export async function ensureAuthenticated(request: Request, response: Response, 
   try {
     const { sub: employee_id } = verify(token, "36167ff97a72db6e8e4ada9823d96c03") as IPayload;
 
-    const usersRepository = new EmployeeRepository();
+    const employeesRepository = new EmployeeRepository();
 
-    const user = await usersRepository.findById(employee_id);
+    const employee = await employeesRepository.findById(employee_id);
 
-    if (!user) {
-      throw new AppError("User does not exists!")
+    if (!employee) {
+      throw new AppError("Employee does not exists!")
     }
 
     request.employee = {
