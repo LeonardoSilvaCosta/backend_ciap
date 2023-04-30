@@ -11,5 +11,5 @@ const listEmployeesController = new ListEmployeesController();
 const deleteEmployeeControlller = new DeleteEmployeeController();
 
 employeeRoutes.post("/", createEmployeeController.handle);
-employeeRoutes.get("/", ensureAuthenticated, listEmployeesController.handle);
-employeeRoutes.delete("/:id", ensureAuthenticated, deleteEmployeeControlller.handle)
+employeeRoutes.get("/", listEmployeesController.handle);
+employeeRoutes.delete("/:id", deleteEmployeeControlller.handle)

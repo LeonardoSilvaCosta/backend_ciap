@@ -1,11 +1,10 @@
 import { hash } from 'bcrypt';
 import { AppError } from "../../../../errors/AppError";
 import { IEmployeeRepository } from '../../repositories/IEmployeeRepository';
-import { IEmployeeResponseDTO } from '../../dtos/IEmployeeResponseDTO';
 import { ICreateEmployeeRequestDTO } from '../../dtos/ICreateEmployeeRequestDTO';
 import { CreateEmployeeAddressUseCase } from '../createEmployeeAddress/CreateEmployeeAddressUseCase';
 import { CreateEmployeePhoneUseCase } from '../createEmployeePhone/CreateEmployeePhoneUseCase';
-import { ICreatePhoneDTO } from '../../dtos/ICreatePhoneDTO';
+import { ICreateEmployeeResponseDTO } from '../../dtos/ICreateEmployeeResponseDTO';
 
 export class CreateEmployeeUseCase {
   constructor(
@@ -36,7 +35,7 @@ export class CreateEmployeeUseCase {
     board_id,
     specialty_id,
     password
-  }: ICreateEmployeeRequestDTO): Promise<IEmployeeResponseDTO> {
+  }: ICreateEmployeeRequestDTO): Promise<ICreateEmployeeResponseDTO> {
 
     const employeeAlreadyExists = await this.employeeRepository.findByEmail(email);
 
@@ -68,14 +67,16 @@ export class CreateEmployeeUseCase {
       password: passwordHash,
     })
 
-    if (address)
+    if (address) {
       await this.createEmployeeAddressUseCase.execute({
         employee_id: createdEmployee.id ? createdEmployee.id : "",
         address,
       });
+    }
+
 
     if (phones) {
-      const phonesToSave: ICreatePhoneDTO[] = phones.map((e: string) => {
+      const phonesToSave = phones.map((e: string) => {
         return {
           employee_id: createdEmployee.id,
           phone: e,
@@ -83,6 +84,7 @@ export class CreateEmployeeUseCase {
       });
       await this.createEmployeePhoneUseCase.execute(phonesToSave);
     }
+
 
     return createdEmployee;
 

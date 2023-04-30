@@ -3,9 +3,10 @@ import { Employee, EmployeePhone } from "@prisma/client";
 import { IEmployeeRepository } from '../IEmployeeRepository';
 import { ICreateEmployeeRequestDTO } from '../../dtos/ICreateEmployeeRequestDTO';
 import { IEmployeeResponseDTO } from '../../dtos/IEmployeeResponseDTO';
+import { ICreateEmployeeResponseDTO } from '../../dtos/ICreateEmployeeResponseDTO';
 
 export class EmployeeRepository implements IEmployeeRepository {
-  async create(employee: ICreateEmployeeRequestDTO): Promise<IEmployeeResponseDTO> {
+  async create(employee: ICreateEmployeeRequestDTO): Promise<ICreateEmployeeResponseDTO> {
     const response = await prisma.employee.create({
       data: {
         avatar: employee.avatar,
@@ -52,10 +53,6 @@ export class EmployeeRepository implements IEmployeeRepository {
       cpf: response.cpf,
       gender: response.Gender.name,
       email: response.email,
-      phones: response.Phones.map((e: EmployeePhone) => {
-        return e.phone
-      }),
-      address: response.Address,
       marital_status: response.MaritalStatus.name,
       education_level: response.EducationLevel.name,
       number_of_children: response.numberOfChildren,
