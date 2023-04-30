@@ -8,8 +8,8 @@ export interface IEmployeeResponseDTO {
     cpf: string,
     gender: string,
     email: string,
-    phones: string[],
-    address: EmployeeAddress | null,
+    phones?: string[],
+    address?: EmployeeAddress | null,
     marital_status: string,
     education_level: string
     number_of_children: number,

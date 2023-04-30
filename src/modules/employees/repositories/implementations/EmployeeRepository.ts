@@ -3,10 +3,11 @@ import { Employee, EmployeePhone } from "@prisma/client";
 import { IEmployeeRepository } from '../IEmployeeRepository';
 import { ICreateEmployeeRequestDTO } from '../../dtos/ICreateEmployeeRequestDTO';
 import { IEmployeeResponseDTO } from '../../dtos/IEmployeeResponseDTO';
-import { ICreateEmployeeResponseDTO } from '../../dtos/ICreateEmployeeResponseDTO';
+import { IUpdateEmployeeRequestDTO } from '../../dtos/IUpdateEmployeeRequestDTO';
+import { ICreateUpdateEmployeeResponseDTO } from '../../dtos/ICreateUpdateEmployeeResponseDTO';
 
 export class EmployeeRepository implements IEmployeeRepository {
-  async create(employee: ICreateEmployeeRequestDTO): Promise<ICreateEmployeeResponseDTO> {
+  async create(employee: ICreateEmployeeRequestDTO): Promise<ICreateUpdateEmployeeResponseDTO> {
     const response = await prisma.employee.create({
       data: {
         avatar: employee.avatar,
@@ -30,8 +31,6 @@ export class EmployeeRepository implements IEmployeeRepository {
         password: employee.password
       },
       include: {
-        Phones: true,
-        Address: true,
         Gender: true,
         MaritalStatus: true,
         EducationLevel: true,
@@ -68,6 +67,130 @@ export class EmployeeRepository implements IEmployeeRepository {
       created_at: response.createdAt,
       created_by: response.CreatedBy?.id
     }
+  }
+
+  async list(): Promise<IEmployeeResponseDTO[]> {
+    const response = await prisma.employee.findMany({
+      include: {
+        Phones: true,
+        Address: true,
+        Gender: true,
+        MaritalStatus: true,
+        EducationLevel: true,
+        EmployeeUpdates: true,
+        Unit: true,
+        AdministrativeRole: true,
+        JobStatus: true,
+        Rank: true,
+        Board: true,
+        Specialty: true,
+        CreatedBy: true,
+      }
+    });
+
+    const formattedEmployees = response.map((e) => {
+      return {
+        id: e.id,
+        avatar: e.avatar,
+        fullname: e.fullname,
+        birthdate: e.birthdate,
+        cpf: e.cpf,
+        gender: e.Gender.name,
+        email: e.email,
+        phones: e.Phones.map((i: EmployeePhone) => {
+          return i.phone
+        }),
+        address: e.Address,
+        marital_status: e.MaritalStatus.name,
+        education_level: e.EducationLevel.name,
+        number_of_children: e.numberOfChildren,
+        birthplace: e.birthplace,
+        code_name: e.codeName,
+        unit: e.Unit.name,
+        administrative_role: e.AdministrativeRole?.name,
+        job_status: e.JobStatus.name,
+        military_id: e.militaryId,
+        rank: e.Rank?.name,
+        board: e.Board?.name,
+        specialty: e.Specialty?.name,
+        created_at: e.createdAt,
+        created_by: e.CreatedBy?.id
+      }
+    })
+
+    return formattedEmployees;
+  }
+
+  async update(id: string, data: IUpdateEmployeeRequestDTO): Promise<ICreateUpdateEmployeeResponseDTO> {
+    const response = await prisma.employee.update({
+      where: {
+        id,
+      },
+      data: {
+        avatar: data.avatar,
+        fullname: data.fullname,
+        birthdate: data.birthdate,
+        fkGender: data.gender_id,
+        fkMaritalStatus: data.marital_status_id,
+        fkEducationLevel: data.education_level_id,
+        numberOfChildren: data.number_of_children,
+        birthplace: data.birthplace,
+        codeName: data.code_name,
+        fkUnit: data.unit_id,
+        fkAdministrativeRole: data.administrative_role_id,
+        fkJobStatus: data.job_status_id,
+        militaryId: data.military_id,
+        fkRank: data.rank_id,
+        fkBoard: data.board_id,
+        fkSpecialty: data.specialty_id,
+        password: data.password
+      },
+      include: {
+        Gender: true,
+        MaritalStatus: true,
+        EducationLevel: true,
+        EmployeeUpdates: true,
+        Unit: true,
+        AdministrativeRole: true,
+        JobStatus: true,
+        Rank: true,
+        Board: true,
+        Specialty: true,
+        CreatedBy: true,
+      }
+    })
+
+    return {
+      id: response.id,
+      avatar: response.avatar,
+      fullname: response.fullname,
+      birthdate: response.birthdate,
+      cpf: response.cpf,
+      gender: response.Gender.name,
+      email: response.email,
+      marital_status: response.MaritalStatus.name,
+      education_level: response.EducationLevel.name,
+      number_of_children: response.numberOfChildren,
+      birthplace: response.birthplace,
+      code_name: response.codeName,
+      unit: response.Unit.name,
+      administrative_role: response.AdministrativeRole?.name,
+      job_status: response.JobStatus.name,
+      military_id: response.militaryId,
+      rank: response.Rank?.name,
+      board: response.Board?.name,
+      specialty: response.Specialty?.name,
+      created_at: response.createdAt,
+      created_by: response.CreatedBy?.id
+    }
+  }
+
+  async delete(id: string): Promise<void> {
+    await prisma.employee.delete({
+      where: {
+        id,
+      }
+    });
   }
 
   async findByEmail(email: string): Promise<Employee | null> {
@@ -127,66 +250,6 @@ export class EmployeeRepository implements IEmployeeRepository {
       created_at: response.createdAt,
       created_by: response.CreatedBy?.id
     };
-  }
-
-  async list(): Promise<IEmployeeResponseDTO[]> {
-    const response = await prisma.employee.findMany({
-      include: {
-        Phones: true,
-        Address: true,
-        Gender: true,
-        MaritalStatus: true,
-        EducationLevel: true,
-        EmployeeUpdates: true,
-        Unit: true,
-        AdministrativeRole: true,
-        JobStatus: true,
-        Rank: true,
-        Board: true,
-        Specialty: true,
-        CreatedBy: true,
-      }
-    });
-
-    const formattedEmployees = response.map((e) => {
-      return {
-        id: e.id,
-        avatar: e.avatar,
-        fullname: e.fullname,
-        birthdate: e.birthdate,
-        cpf: e.cpf,
-        gender: e.Gender.name,
-        email: e.email,
-        phones: e.Phones.map((i: EmployeePhone) => {
-          return i.phone
-        }),
-        address: e.Address,
-        marital_status: e.MaritalStatus.name,
-        education_level: e.EducationLevel.name,
-        number_of_children: e.numberOfChildren,
-        birthplace: e.birthplace,
-        code_name: e.codeName,
-        unit: e.Unit.name,
-        administrative_role: e.AdministrativeRole?.name,
-        job_status: e.JobStatus.name,
-        military_id: e.militaryId,
-        rank: e.Rank?.name,
-        board: e.Board?.name,
-        specialty: e.Specialty?.name,
-        created_at: e.createdAt,
-        created_by: e.CreatedBy?.id
-      }
-    })
-
-    return formattedEmployees;
-  }
-
-  async delete(id: string): Promise<void> {
-    await prisma.employee.delete({
-      where: {
-        id,
-      }
-    });
   }
 
 }

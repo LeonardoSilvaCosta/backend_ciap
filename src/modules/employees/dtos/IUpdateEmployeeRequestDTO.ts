@@ -1,15 +1,13 @@
-import { ICreateEmployeeAddressRequestDTO } from "./ICreateEmployeeAddressRequestDTO"
+import { IEmployeeAddressDTO } from "./IEmployeeAddressResponseDTO"
 
-export interface ICreateEmployeeRequestDTO {
-  id?: string,
+export interface IUpdateEmployeeRequestDTO {
   avatar?: string,
   fullname: string,
   birthdate: Date,
-  cpf: string,
   gender_id: string,
-  email: string,
-  phones?: string[],
-  address?: ICreateEmployeeAddressRequestDTO,
+  oldPhones?: string[],
+  newPhones?: string[],
+  address?: IEmployeeAddressDTO,
   marital_status_id: string,
   education_level_id: string
   number_of_children: number,

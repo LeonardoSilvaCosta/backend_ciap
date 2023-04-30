@@ -15,10 +15,10 @@ export class EmployeePhoneRepository implements IEmployeePhoneRepository {
         }
       }),
     });
-  
+
     return createdRecords;
   }
-  
+
 
   async findById(employee_id: string, phone: string): Promise<EmployeePhone | null> {
     const phone_response = await prisma.employeePhone.findFirst({
@@ -34,5 +34,23 @@ export class EmployeePhoneRepository implements IEmployeePhoneRepository {
   async list(): Promise<EmployeePhone[]> {
     return await prisma.employeePhone.findMany();
   }
+
+  async update(employee_id: string, oldPhones: string[], phones: string[]): Promise<EmployeePhone[]> {
+    const responses = await Promise.all(oldPhones.map(async (oldPhone, index) => {
+      const phoneId = { employeeId: employee_id, phone: oldPhone };
+      const response = await prisma.employeePhone.update({
+        where: {
+          employeeId_phone: phoneId
+        },
+        data: {
+          phone: phones[index]
+        }
+      });
+      return response;
+    }));
+  
+    return responses;
+  }
+  
 
 }

@@ -1,5 +1,5 @@
 
-export interface ICreateEmployeeResponseDTO {
+export interface ICreateUpdateEmployeeResponseDTO {
     id?: string,
     avatar: string | null,
     fullname: string,
