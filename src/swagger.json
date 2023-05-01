@@ -92,7 +92,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserCredentials"
+                "$ref": "#/components/schemas/EmployeeCredentials"
               }
             }
           }
@@ -134,7 +134,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetEmployeeResponse"
+                  "$ref": "#/components/schemas/GetCurrentEmployeeResponse"
                 }
               }
             }
@@ -173,7 +173,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateGender"
+                  "$ref": "#/components/schemas/GenderResponse"
                 }
               }
             }
@@ -183,6 +183,38 @@
           },
           "500": {
             "description": "Erro servidor."
+          }
+        }
+      },
+      "get": {
+        "description": "Retorna uma lista com os gêneros cadastrados",
+        "tags": [
+          "Sexo"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenderResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "404": {
+            "description": "Gênero não encontrado."
+          },
+          "500": {
+            "description": "Erro no servidor."
           }
         }
       }
@@ -198,7 +230,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateMarialStatus"
+                "$ref": "#/components/schemas/CreateMaritalStatus"
               }
             }
           }
@@ -209,7 +241,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateMaritalStatus"
+                  "$ref": "#/components/schemas/MaritalStatusResponse"
                 }
               }
             }
@@ -219,6 +251,38 @@
           },
           "500": {
             "description": "Erro servidor."
+          }
+        }
+      },
+       "get": {
+        "description": "Retorna uma lista com os estados civis cadastrados",
+        "tags": [
+          "Estado civil"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MaritalStatusResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "404": {
+            "description": "Estado civil não encontrado."
+          },
+          "500": {
+            "description": "Erro no servidor."
           }
         }
       }
@@ -245,7 +309,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateEducationLevel"
+                  "$ref": "#/components/schemas/EducationLevelResponse"
                 }
               }
             }
@@ -255,6 +319,174 @@
           },
           "500": {
             "description": "Erro servidor."
+          }
+        }
+      },
+      "get": {
+        "description": "Retorna uma lista com as escolaridades cadastradas",
+        "tags": [
+          "Escolaridade"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EducationLevelResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "404": {
+            "description": "Escolaridade não encontrada."
+          },
+          "500": {
+            "description": "Erro no servidor."
+          }
+        }
+      }
+    },
+    "/units": {
+      "post": {
+        "description": "Cria uma opção de unidade na tabela units.",
+        "tags": [
+          "Unidade"
+        ],
+        "requestBody": {
+          "description": "Dados necessários para o cadastro de uma unidade.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUnit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Unidade criada com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitReponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Essa unidade já foi cadastrada."
+          },
+          "500": {
+            "description": "Erro servidor."
+          }
+        }
+      },
+      "get": {
+        "description": "Retorna uma lista com as unidades cadastradas",
+        "tags": [
+          "Unidade"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "404": {
+            "description": "Unidade não encontrada."
+          },
+          "500": {
+            "description": "Erro no servidor."
+          }
+        }
+      }
+    },
+    "/administrativeRoles": {
+      "post": {
+        "description": "Cria uma opção de função administrativa na tabela administrative_roles.",
+        "tags": [
+          "Função administrativa"
+        ],
+        "requestBody": {
+          "description": "Dados necessários para o cadastro de uma função administrativa.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAdministrativeRole"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Função administrativa criada com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdministrativeRoleReponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Essa unidade já foi cadastrada."
+          },
+          "500": {
+            "description": "Erro servidor."
+          }
+        }
+      },
+      "get": {
+        "description": "Retorna uma lista com as funções administrativas cadastradas",
+        "tags": [
+          "Função administrativa"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdministrativeRoleResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "404": {
+            "description": "Função administrative não encontrada."
+          },
+          "500": {
+            "description": "Erro no servidor."
           }
         }
       }
@@ -304,7 +536,10 @@
                 "type": "string"
               }
             },
-            "example": "leonardocostapsi@gmail.com"
+            "example": [
+              "91988165507",
+              "91993294200"
+            ]
           },
           "address": {
             "type": "object",
@@ -429,11 +664,11 @@
             "type": "string",
             "example": "49415961023"
           },
-          "gender_id": {
+          "gender": {
             "description": "Identificador do sexo do funcionário criado.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "Masculino"
           },
           "email": {
             "description": "Email do funcionário criado.",
@@ -473,17 +708,17 @@
               "number": 53
             }
           },
-          "marital_status_id": {
+          "marital_status": {
             "description": "Identificador do estado civil do funcionário criado.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "Solteiro(a)"
           },
-          "education_level_id": {
+          "education_level": {
             "description": "Identificador do nível de escolaridade do funcionário criado.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "Superior completo"
           },
           "number_of_children": {
             "description": "Número de filhos do funcionário criado.",
@@ -500,43 +735,43 @@
             "type": "string",
             "example": "Leonardo"
           },
-          "unit_id": {
+          "unit": {
             "description": "Identificador da opção referente a unidade a qual o funcionário pertence.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "CIAP"
           },
-          "administrative_role_id": {
+          "administrative_role": {
             "description": "Identificador da opção referente a função administrativa a qual o funcionário exerce. ex.: P1, P2, etc.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "P1"
           },
-          "job_status_id": {
+          "job_status": {
             "description": "Identificador da opção referente ao status do trabalho. Se está ativo ou inativo, por exemplo.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "Ativo"
           },
           "military_id": {
             "description": "RG do funcionário que será criado",
             "type": "string",
             "example": "40897"
           },
-          "rank_id": {
+          "rank": {
             "description": "Identificar do nível hierárquico referente ao funicionário.",
             "type": "string",
-            "example": "40daffff-083f-426e-8bcd-fd6b0af16457"
+            "example": "1º TEN"
           },
-          "board_id": {
+          "board": {
             "description": "identificador do quadro do qual o funcionário que será cadastro pertence.",
             "type": "string",
-            "example": "045f77db-0b57-42d4-87f7-d9da872ba141"
+            "example": "QCOPM"
           },
-          "specialty_id": {
+          "specialty": {
             "description": "identificador da especialidade da qual o funcionário que será cadastro pertence.",
             "type": "string",
-            "example": "1c4376d7-5f79-47fc-bb53-d4b32ed6c54b"
+            "example": "Psicólogo(a)"
           },
           "created_at": {
             "description": "Data de criação do usuário criado.",
@@ -546,48 +781,48 @@
           }
         }
       },
-      "GetEmployeeResponse": {
+      "GetCurrentEmployeeResponse": {
         "type": "object",
         "properties": {
           "id": {
-            "description": "Identificador do funcionário criado.",
+            "description": "Identificador do funcionário corrente.",
             "type": "string",
             "format": "uuid",
             "example": "d563f847-75af-4ecf-9d72-09bfee78116d"
           },
           "avatar": {
-            "description": "Foto de perfil do funcionário criado.",
+            "description": "Foto de perfil do funcionário corrente.",
             "type": "string",
             "example": "https://photografos.com.br/wp-content/uploads/2020/09/fotografia-para-perfil.jpg"
           },
           "fullname": {
-            "description": "Nome completo do funcionário criado.",
+            "description": "Nome completo do funcionário corrente.",
             "type": "string",
             "example": "Leonardo da Silva Costa"
           },
           "birthdate": {
-            "description": "Data de nascimento do funcionário criado.",
+            "description": "Data de nascimento do funcionário corrente.",
             "type": "string",
             "example": "20/01/2022"
           },
           "cpf": {
-            "description": "CPF do funcionário criado.",
+            "description": "CPF do funcionário corrente.",
             "type": "string",
             "example": "49415961023"
           },
-          "gender_id": {
-            "description": "Identificador do sexo do funcionário criado.",
+          "gender": {
+            "description": "Sexo do funcionário corrente.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "Masculino"
           },
           "email": {
-            "description": "Email do funcionário criado.",
+            "description": "Email do funcionário corrente.",
             "type": "string",
             "example": "leonardocostapsi@gmail.com"
           },
           "phones": {
-            "description": "Números de telefone do funcionário que será criado.",
+            "description": "Números de telefone do funcionário corrente.",
             "type": "array",
             "items": {
               "phone": {
@@ -600,7 +835,7 @@
             ]
           },
           "address": {
-            "description": "Endereço do funcionário criado.",
+            "description": "Endereço do funcionário corrente.",
             "type": "object",
             "properties": {
               "postal_code": {
@@ -610,7 +845,7 @@
               },
               "number": {
                 "type": "string",
-                "description": "Número da residência do funcionário criado.",
+                "description": "Número da residência do funcionário corrente.",
                 "required": true
               }
             },
@@ -619,73 +854,73 @@
               "number": 53
             }
           },
-          "marital_status_id": {
-            "description": "Identificador do estado civil do funcionário criado.",
+          "marital_status": {
+            "description": "Estado civil do funcionário corrente.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "Solteiro(a)"
           },
           "education_level_id": {
-            "description": "Identificador do nível de escolaridade do funcionário criado.",
+            "description": "nível de escolaridade do funcionário corrente.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "Superior completo"
           },
           "number_of_children": {
-            "description": "Número de filhos do funcionário criado.",
+            "description": "Número de filhos do funcionário corrente.",
             "type": "number",
             "example": 0
           },
           "birthplace": {
-            "description": "Local de nascimento do funcionário criado no formato cidade-estado.",
+            "description": "Local de nascimento do funcionário corrente no formato cidade-estado.",
             "type": "string",
             "example": "Belém-PA"
           },
           "code_name": {
-            "description": "Nome de guerra do funcionário",
+            "description": "Nome de guerra do funcionário corrente",
             "type": "string",
             "example": "Leonardo"
           },
-          "unit_id": {
-            "description": "Identificador da opção referente a unidade a qual o funcionário pertence.",
+          "unit": {
+            "description": "Unidade da qual o funcionário corrente pertence.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "CIAP"
           },
-          "administrative_role_id": {
-            "description": "Identificador da opção referente a função administrativa a qual o funcionário exerce. ex.: P1, P2, etc.",
+          "administrative_role": {
+            "description": "Função administrativa a qual o funcionário corrente exerce. ex.: P1, P2, etc.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "P1"
           },
-          "job_status_id": {
-            "description": "Identificador da opção referente ao status do trabalho. Se está ativo ou inativo, por exemplo.",
+          "job_status": {
+            "description": "Status do trabalho do funcionário corrente. Se está ativo ou inativo, por exemplo.",
             "type": "string",
             "format": "uuid",
-            "example": "6adae8b2-af95-4608-8974-f5b677b8a98c"
+            "example": "Ativo"
           },
           "military_id": {
-            "description": "RG do funcionário que será criado",
+            "description": "RG do funcionário corrente",
             "type": "string",
             "example": "40897"
           },
-          "rank_id": {
-            "description": "Identificar do nível hierárquico referente ao funicionário.",
+          "rank": {
+            "description": "Nível hierárquico referente ao funicionário corrente.",
             "type": "string",
-            "example": "40daffff-083f-426e-8bcd-fd6b0af16457"
+            "example": "1º TEN"
           },
           "board_id": {
-            "description": "identificador do quadro do qual o funcionário que será cadastro pertence.",
+            "description": "Quadro do qual o funcionário corrente pertence.",
             "type": "string",
-            "example": "045f77db-0b57-42d4-87f7-d9da872ba141"
+            "example": "QCOPM"
           },
           "specialty_id": {
-            "description": "identificador da especialidade da qual o funcionário que será cadastro pertence.",
+            "description": "Especialidade do funcionário corrente pertence.",
             "type": "string",
-            "example": "1c4376d7-5f79-47fc-bb53-d4b32ed6c54b"
+            "example": "Psicólogo(a)"
           },
           "created_at": {
-            "description": "Data de criação do usuário criado.",
+            "description": "Data de criação do funcionário corrente no sistema.",
             "type": "string",
             "format": "date-time",
             "example": "2017-07-21T17:32:28Z"
@@ -766,54 +1001,143 @@
         ]
       },
       "CreateGender": {
-        "description": "Objeto que armazena as opções de sexo.",
+        "description": "Objeto de requisição para criar um sexo.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Masculino"
+        }
+      },
+      "GenderResponse": {
+        "description": "Objeto que retorna em uma listagem de sexos.",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "format": "uuid"
+            "type": "string"
           },
           "name": {
             "type": "string"
           }
         },
         "example": {
-          "id": "6adae8b2-af95-4608-8974-f5b677b8a98c",
+          "id": "760d485c-a905-46d7-b570-11779a5ca4ba",
           "name": "Masculino"
         }
       },
       "CreateEducationLevel": {
-        "description": "Objeto que armazena as opções de escolaridade.",
+        "description": "Objeto de requisição para criar uma escolaridade.",
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
           "name": {
             "type": "string"
           }
         },
         "example": {
-          "id": "6adae8b2-af95-4608-8974-f5b677b8a98c",
           "name": "Médio completo."
         }
       },
-      "CreateMaritalStatus": {
-        "description": "Objeto que armazena as opções de estado civil.",
+      "EducationLevelResponse": {
+        "description": "Objeto que retorna uma escolaridade.",
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "format": "uuid"
+            "type": "string"
           },
           "name": {
             "type": "string"
           }
         },
         "example": {
-          "id": "6adae8b2-af95-4608-8974-f5b677b8a98c",
+          "id": "760d485c-a905-46d7-b570-11779a5ca4ba",
+          "name": "Superior completo"
+        }
+      },
+      "CreateMaritalStatus": {
+        "description": "Objeto de requisição para criar um estado civil.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
           "name": "Solteiro(a)"
+        }
+      },
+      "MaritalStatusResponse": {
+        "description": "Objeto que retorna em um estado civil.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "760d485c-a905-46d7-b570-11779a5ca4ba",
+          "name": "Solteiro(a)"
+        }
+      },
+      "CreateUnit": {
+        "description": "Objeto de requisição para criar uma unidade.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "CIAP"
+        }
+      },
+      "UnitResponse": {
+        "description": "Objeto que retorna em uma unidade.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "760d485c-a905-46d7-b570-11779a5ca4ba",
+          "name": "CIAP"
+        }
+      },
+      "CreateAdministrativeRole": {
+        "description": "Objeto de requisição para criar uma Função administrativa.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "P1"
+        }
+      },
+      "AdministrativeRoleResponse": {
+        "description": "Objeto que retorna em uma Função administrative.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "760d485c-a905-46d7-b570-11779a5ca4ba",
+          "name": "P1"
         }
       }
     },
