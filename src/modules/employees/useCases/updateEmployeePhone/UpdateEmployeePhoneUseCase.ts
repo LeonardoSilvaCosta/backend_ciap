@@ -10,7 +10,6 @@ export class UpdateEmployeePhoneUseCase {
   async execute(employee_id: string, oldPhones: string[], newPhones: string[]): Promise<EmployeePhone[]> {
     const phoneExistsPromises = oldPhones.map(async (oldPhone) => {
       const phoneExists = await this.employeePhoneRepository.findById(employee_id, oldPhone);
-      console.log(phoneExists)
       if (!phoneExists) {
         throw new AppError("This phone does not exist.");
       }

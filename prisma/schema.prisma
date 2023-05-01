@@ -44,11 +44,9 @@ model Employee {
   CreatedBy          Employee?           @relation(name: "employee_created_by", fields: [createdBy], references: [id])
   Phones             EmployeePhone[]     @relation(name: "phones")
 
-  RegisteredEmployees       Employee[]      @relation(name: "employee_created_by")
-  RegisteredClients         Client[]        @relation(name: "client_created_by")
-  RegisteredClientPhones    ClientPhone[]   @relation(name: "client_phone_created_by")
-  RegisteredClientAddresses ClientAddress[] @relation(name: "client_address_created_by")
-  RegisteredClientUpdates   ClientUpdate[]  @relation(name: "client_update_created_by")
+  RegisteredEmployees     Employee[]     @relation(name: "employee_created_by")
+  RegisteredClients       Client[]       @relation(name: "client_created_by")
+  RegisteredClientUpdates ClientUpdate[] @relation(name: "client_update_created_by")
 
   EmployeeUpdates EmployeeUpdate[] @relation(name: "updated_associated_with")
 
@@ -56,36 +54,36 @@ model Employee {
 }
 
 model Client {
-  id                   String   @id @default(uuid())
+  id                   String    @id @default(uuid())
   avatar               String?
-  fullname             String   @db.VarChar(255)
-  birthdate            DateTime
-  cpf                  String   @unique
-  fkGender             String   @map("fk_gender")
-  email                String   @unique
-  fkMaritalStatus      String   @map("fk_marital_level")
-  fkEducationLevel     String   @map("fk_education_level")
-  numberOfChildren     Int      @map("number_of_children")
-  birthplace           String
-  codeName             String   @map("code_name")
-  fkUnit               String   @map("fk_unit")
-  fkAdministrativeRole String?  @map("fk_function")
-  fkJobStatus          String   @map("fk_job_status")
-  militaryId           String?  @map("military_id")
-  fkRank               String?  @map("fk_rank")
-  fkBoard              String?  @map("fk_board")
-  fkPolicyHolder       String?  @map("fk_policy_holder")
-  fkTypeOfBond         String?  @map("fk_type_of_bond")
-  createdAt            DateTime @default(now()) @map("created_at")
-  createdBy            String   @unique @map("created_by")
+  fullname             String    @db.VarChar(255)
+  birthdate            DateTime?
+  cpf                  String?   @unique
+  fkGender             String    @map("fk_gender")
+  email                String?   @unique
+  fkMaritalStatus      String?   @map("fk_marital_level")
+  fkEducationLevel     String?   @map("fk_education_level")
+  numberOfChildren     Int?      @map("number_of_children")
+  birthplace           String?
+  codeName             String?   @map("code_name")
+  fkUnit               String?   @map("fk_unit")
+  fkAdministrativeRole String?   @map("fk_function")
+  fkJobStatus          String?   @map("fk_job_status")
+  militaryId           String?   @map("military_id")
+  fkRank               String?   @map("fk_rank")
+  fkBoard              String?   @map("fk_board")
+  fkPolicyHolder       String?   @map("fk_policy_holder")
+  fkTypeOfBond         String?   @map("fk_type_of_bond")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  createdBy            String    @unique @map("created_by")
 
   Gender             Gender              @relation(fields: [fkGender], references: [id])
   Address            ClientAddress?      @relation(name: "address")
-  MaritalStatus      MaritalStatus       @relation(fields: [fkMaritalStatus], references: [id])
-  EducationLevel     EducationLevel      @relation(fields: [fkEducationLevel], references: [id])
-  Unit               Unit                @relation(fields: [fkUnit], references: [id])
+  MaritalStatus      MaritalStatus?      @relation(fields: [fkMaritalStatus], references: [id])
+  EducationLevel     EducationLevel?     @relation(fields: [fkEducationLevel], references: [id])
+  Unit               Unit?               @relation(fields: [fkUnit], references: [id])
   AdministrativeRole AdministrativeRole? @relation(fields: [fkAdministrativeRole], references: [id])
-  JobStatus          JobStatus           @relation(fields: [fkJobStatus], references: [id])
+  JobStatus          JobStatus?          @relation(fields: [fkJobStatus], references: [id])
   Rank               Rank?               @relation(fields: [fkRank], references: [id])
   Board              Board?              @relation(fields: [fkBoard], references: [id])
   PolicyHolder       Client?             @relation(name: "policyHolderDependent", fields: [fkPolicyHolder], references: [id])
@@ -94,6 +92,7 @@ model Client {
   Phones             ClientPhone[]       @relation(name: "phones")
   Dependents         Client[]            @relation(name: "policyHolderDependent")
 
+  ClientRecord  ClientRecord?
   ClientUpdates ClientUpdate[] @relation(name: "updated_associated_with")
 
   @@map("clients")
@@ -137,10 +136,8 @@ model ClientPhone {
   clientId  String   @map("clientId")
   phone     String
   createdAt DateTime @default(now()) @map("created_at")
-  createdBy String   @map("created_by")
 
-  Client    Client   @relation(name: "phones", fields: [clientId], references: [id])
-  CreatedBy Employee @relation(name: "client_phone_created_by", fields: [createdBy], references: [id])
+  Client Client @relation(name: "phones", fields: [clientId], references: [id], onDelete: Cascade)
 
   @@id([clientId, phone])
   @@unique([clientId, phone])
@@ -152,10 +149,8 @@ model ClientAddress {
   postalCode String   @map("postal_code")
   number     String
   createdAt  DateTime @default(now()) @map("created_at")
-  createdBy  String   @map("created_by")
 
-  Client    Client   @relation("address", fields: [clientId], references: [id])
-  CreatedBy Employee @relation(name: "client_address_created_by", fields: [createdBy], references: [id])
+  Client Client @relation("address", fields: [clientId], references: [id], onDelete: Cascade)
 
   @@map("client_addresses")
 }
@@ -167,7 +162,7 @@ model ClientUpdate {
   createdAt      DateTime @default(now()) @map("created_at")
   createdBy      String   @unique @map("created_by")
 
-  AssociatedWith Client   @relation("updated_associated_with", fields: [associatedWith], references: [id])
+  AssociatedWith Client   @relation("updated_associated_with", fields: [associatedWith], references: [id], onDelete: Cascade)
   CreatedBy      Employee @relation("client_update_created_by", fields: [createdBy], references: [id])
 
   @@map("client_updates")
@@ -175,11 +170,12 @@ model ClientUpdate {
 
 model ClientRecord {
   id         String   @id @default(uuid())
-  fkClientId String   @map("fk_client_id")
+  fkClientId String   @unique @map("fk_client_id")
   fkStatusId String   @map("fk_status_id")
   createdAt  DateTime @default(now()) @map("created_at")
 
-  RecordStatus RecordStatus @relation(fields: [fkStatusId], references: [id])
+  Client       Client       @relation(fields: [fkClientId], references: [id])
+  RecordStatus RecordStatus @relation(fields: [fkStatusId], references: [id], onDelete: Cascade)
 
   @@map("client_records")
 }

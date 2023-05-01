@@ -1,0 +1,28 @@
+import { ClientAddress } from "@prisma/client";
+
+export interface IClientResponseDTO {
+    id?: string,
+    avatar: string | null,
+    fullname: string,
+    birthdate: Date | null,
+    cpf: string | null,
+    gender: string,
+    email: string | null,
+    phones?: string[],
+    address?: ClientAddress | null,
+    marital_status?: string | null,
+    education_level?: string | null,
+    number_of_children?: number | null,
+    birthplace?: string | null,
+    code_name: string | null,
+    unit?: string | null,
+    administrative_role?: string | null,
+    job_status?: string | null,
+    military_id: string | null,
+    rank?: string | null,
+    board?: string| null,
+    policy_holder?: string | null,
+    type_of_bond?: string | null,
+    created_at: Date,
+    created_by: string,
+}
