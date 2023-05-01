@@ -490,6 +490,142 @@
           }
         }
       }
+    },
+    "/jobStatus": {
+      "post": {
+        "description": "Cria uma opção de status laboral na tabela job_status.",
+        "tags": [
+          "Status laboral"
+        ],
+        "requestBody": {
+          "description": "Dados necessários para o cadastro de uma status laboral.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateJobStatus"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Status laboral criado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Esse status loboral já foi cadastrado."
+          },
+          "500": {
+            "description": "Erro no servidor."
+          }
+        }
+      },
+      "get": {
+        "description": "Retorna uma lista com status laborais cadastrados",
+        "tags": [
+          "Status laboral"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobStatusResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "404": {
+            "description": "Status laboral não encontrado."
+          },
+          "500": {
+            "description": "Erro no servidor."
+          }
+        }
+      }
+    },
+    "/ranks": {
+      "post": {
+        "description": "Cria uma opção de nível hierárquico na tabela ranks.",
+        "tags": [
+          "Nível hierárquico"
+        ],
+        "requestBody": {
+          "description": "Dados necessários para o cadastro de uma nível hierárquico.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRank"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Nível hierárquico criado com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RankResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Esse nível hierárquico já foi cadastrado."
+          },
+          "500": {
+            "description": "Erro no servidor."
+          }
+        }
+      },
+      "get": {
+        "description": "Retorna uma lista com níveis hierárquicos cadastrados",
+        "tags": [
+          "Nível hierárquico"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RankResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "404": {
+            "description": "Nível hierárquico não encontrado."
+          },
+          "500": {
+            "description": "Erro no servidor."
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1138,6 +1274,62 @@
         "example": {
           "id": "760d485c-a905-46d7-b570-11779a5ca4ba",
           "name": "P1"
+        }
+      },
+      "CreateJobStatus": {
+        "description": "Objeto de requisição para criar um status laboral.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Folga"
+        }
+      },
+      "JobStatusResponse": {
+        "description": "Objeto que retorna em um status laboral.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "760d485c-a905-46d7-b570-11779a5ca4ba",
+          "name": "Ativo"
+        }
+      },
+      "CreateRank": {
+        "description": "Objeto de requisição para criar um nível hierárquico.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "1º TEN"
+        }
+      },
+      "RankResponse": {
+        "description": "Objeto que retorna em um nível hierárquico.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "760d485c-a905-46d7-b570-11779a5ca4ba",
+          "name": "1º TEN"
         }
       }
     },
